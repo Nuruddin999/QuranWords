@@ -6,8 +6,9 @@ let lvls = [{
     coordinats:["l8","l9","l6","l7"]
 },
 {
-    mainword: "شاحنىثة",
-    word1: "شاحنة",
+    mainword: "غوازسق",
+    word1: "غاسق",
+    coordinats:["l8","l9","l6","l7","l4","l5"]
 
 },
 {
