@@ -19,7 +19,7 @@ const Levels = ({ ...props }) => {
   `
     const onClick = (index) => {
         if (index > props.state.data.finished) return
-        props.setState(state => ({ ...state, toLevel: true, currentLevel: index }))
+        props.setState(state => ({ ...state, toLevel: true, currentLevel: index+1 }))
     }
     return (
         <div id="levelCnt">

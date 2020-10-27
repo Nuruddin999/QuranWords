@@ -19,12 +19,44 @@ const LevelFinish = ({...props}) => {
         }
     })
     const levelFinishStyle = levelFinishStyles()
+    const toLevels=()=>{
+        props.state.setState(state=>({...state,toLevels:true, isWord1Resolved: false,
+            currentLevel:state.currentLevel+1,
+            stars:0,
+            letters: [],
+            started: true,
+            linePoints: [],
+            refList: [],
+            points: [],
+            previewLetter: [],
+            currnetWord: "",
+            isGreen: false,
+            wrongAttempts:0,
+            isFinished:false,
+            classes:[]}))
+    }
+    const toNextLevel=()=>{
+        props.state.setState(state=>({...state,toLevels:false, isWord1Resolved: false,
+            currentLevel:state.currentLevel+1,
+            stars:0,
+            letters: [],
+            started: true,
+            linePoints: [],
+            refList: [],
+            points: [],
+            previewLetter: [],
+            currnetWord: "",
+            isGreen: false,
+            wrongAttempts:0,
+            isFinished:false,
+            classes:[]}))
+    }
     return <Card className={levelFinishStyle.card}>
         <Typography align={"center"}>Поздравляем !!!</Typography>
-        <div className={levelFinishStyle.rating}> <Rating value={props.stars} readOnly max={3}/></div>
+        <div className={levelFinishStyle.rating}> <Rating value={props.state.state.stars} readOnly max={3}/></div>
         <Grid container justify={"center"}>
-            <Button className={levelFinishStyle.buttons}>Следующий уровень</Button>
-            <Button className={levelFinishStyle.buttons}>Список уровней</Button>
+            <Button className={levelFinishStyle.buttons} onClick={toNextLevel}>Следующий уровень</Button>
+            <Button className={levelFinishStyle.buttons} onClick={toLevels}>Список уровней</Button>
         </Grid>
 
     </Card>

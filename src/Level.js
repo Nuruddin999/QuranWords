@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import "./App.css";
 import LevelFinish from "./LevelFinish";
 import {commonStyles} from "./Styles";
+import {Redirect} from "react-router-dom";
 
 const Level = ({...props}) => {
     const styles = commonStyles()
@@ -161,8 +162,11 @@ background:${props => props.green ? "green" : "white"};
         if (props.state.isWord1Resolved) {
             setTimeout(() => props.setState(state => ({...state, isFinished: true})), 2000)
         }
-    }, [props.state.isWord1Resolved])
-    return props.state.isFinished ? <LevelFinish stars={props.state.stars}/> :
+        else if (props.state.toLevel){
+
+        }
+    }, [props.state.isWord1Resolved,props.state.toLevel])
+    return props.state.isFinished ? <LevelFinish state={{state:props.state,setState:props.setState}}/> :
         <div style={{zIndex: "-2", height: "100vh"}}>
             <div className="toLevels" id="toLevels">
                 <img src="./back.svg" alt=""/></div>
@@ -187,8 +191,8 @@ background:${props => props.green ? "green" : "white"};
             </div>
             <canvas id="gameContainer" ref={refCanvas} onTouchStart={(e) => onTouchStart(e)}
                     onTouchMove={(e) => onTouchMove(e)} onTouchEnd={onTouchEnd}></canvas>
-
-
+            {props.state.toLevels ? <Redirect to="/levels" /> : null}
+            {props.state.toLevel ? <Redirect to={`/level/${props.state.currentLevel + 1}`} /> : null}
         </div>
 
 }
