@@ -8,5 +8,8 @@ export const commonStyles = makeStyles({
             display: "block",
             textAlign: "center"
         }
+    },
+    topBar:{
+        textAlign:"center"
     }
 })

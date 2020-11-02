@@ -4,6 +4,8 @@ import "./App.css";
 import LevelFinish from "./LevelFinish";
 import {commonStyles} from "./Styles";
 import {Redirect} from "react-router-dom";
+import {makeStyles} from "@material-ui/core/styles";
+import {white} from "color-name";
 
 const Level = ({...props}) => {
     const styles = commonStyles()
@@ -12,7 +14,6 @@ const Level = ({...props}) => {
     let word = letters[0].split("")
     let word1 = props.levels[props.state.currentLevel - 1][1][0].split("")
     let points = []
-
     let ctx;
     const refCanvas = useRef(null);
     const refL1 = useRef(null)
@@ -40,8 +41,8 @@ const Level = ({...props}) => {
   padding:0.2em 1em;
     border-radius:4px;
     margin:0 auto 100px;
-    color:${props => props.green ? "white" : "white"};
-background:${props => props.green ? "green" : "white"};
+    color:white;
+background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "grey"};
 `
     const showLineAndPrevLetter = (state, setState, index) => {
         let linepoints = state.linePoints
@@ -89,26 +90,32 @@ background:${props => props.green ? "green" : "white"};
             case 0:
                 return 3;
                 break;
+            case 1:
+                return 2;
+                break;
+            case 3:
+                return 1;
+                break;
         }
     }
     const clearLine = (word) => {
         if (props.state.linePoints[0] >= 0) {
             if (word === rightWord) {
-                props.setState(state => ({...state, stars: giveStars(), isWord1Resolved: true, isGreen: true}))
+                props.setState(state => ({...state, stars: giveStars(), isWord1Resolved: true}))
+            } else {
+                props.setState(state => ({...state, stars: 0, isWrong: true,wrongAttempts:state.wrongAttempts+1}))
             }
-
         }
+
     }
     const onTouchEnd = (e) => {
         let prevWord = props.state.previewLetter
         clearLine(prevWord.join(""))
-        setTimeout(() => props.setState(state => ({
+     props.setState(state => ({
             ...state,
-            started: true,
             currnetWord: prevWord.join(""),
             linePoints: [],
-            previewLetter: [],
-        })), 2000)
+        }))
 
     }
 
@@ -126,11 +133,6 @@ background:${props => props.green ? "green" : "white"};
         }
     }
 
-    // useEffect(() => {
-    //     if (props.state.classes.length === 0) {
-    //         props.setState(state=>({...state,classes:props.}))
-    //     }
-    // })
     useEffect(() => {
         if (props.state.letters.length === 0) {
             props.setState(state => ({...state, letters: word}))
@@ -160,20 +162,18 @@ background:${props => props.green ? "green" : "white"};
     }, [props.state.points])
     useEffect(() => {
         if (props.state.isWord1Resolved) {
-            setTimeout(() => props.setState(state => ({...state, isFinished: true})), 2000)
+            setTimeout(() => props.setState(state => ({...state, isFinished: true, previewLetter: [],started: true,})), 2000)
+        } else if (props.state.isWrong) {
+            setTimeout(()=>props.setState(state => ({...state, isWrong: false, previewLetter: [],started: true,})),500)
         }
-        else if (props.state.toLevel){
-
-        }
-    }, [props.state.isWord1Resolved,props.state.toLevel])
-    return props.state.isFinished ? <LevelFinish state={{state:props.state,setState:props.setState}}/> :
+    }, [props.state.isWord1Resolved, props.state.isWrong])
+    return props.state.isFinished ? <LevelFinish state={{state: props.state, setState: props.setState}}/> :
         <div style={{zIndex: "-2", height: "100vh"}}>
             <div className="toLevels" id="toLevels">
                 <img src="./back.svg" alt=""/></div>
             <div id="wContainer">
-                <div id="topBar">
-                    <h3 id="levelDiv"><span id="level">уровень <span id="levelNum">1</span></span><span
-                        id="coinDiv"><span id="coin">0</span><span id="coinSign">💰</span></span></h3>
+                <div id="topBar" className={styles.topBar}>
+                    <h3 id="levelDiv"><span id="level">уровень</span> <span id="levelNum">{props.state.currentLevel}</span></h3>
                     <div id="wcont">
                         {props.state.isWord1Resolved ?
                             <span className={styles.prevWord}>{word1}</span> : word1.map(letter =>
@@ -181,18 +181,18 @@ background:${props => props.green ? "green" : "white"};
                     </div>
                 </div>
             </div>
-            <Preview green={props.state.isGreen} id="preview">{props.state.previewLetter.map(prevLetter => <span
-                id="previewTxt" className={styles.green}>{prevLetter}</span>)}</Preview>
+            {!props.state.started ?
+                <Preview end={{green: props.state.isWord1Resolved, wrong: props.state.isWrong}}
+                         id="preview">{props.state.previewLetter}</Preview> : null}
             <div className="lContainer">
-
-                <div className="preview"><span></span></div>
-                {word.map((letter, index) => <div className={`l ${props.levels[props.state.currentLevel - 1][2][index]}`}
-                                                  ref={props.state.refList[index]}>{letter}</div>)}
+                {word.map((letter, index) => <div
+                    className={`l ${props.levels[props.state.currentLevel - 1][2][index]}`}
+                    ref={props.state.refList[index]}>{letter}</div>)}
             </div>
             <canvas id="gameContainer" ref={refCanvas} onTouchStart={(e) => onTouchStart(e)}
                     onTouchMove={(e) => onTouchMove(e)} onTouchEnd={onTouchEnd}></canvas>
-            {props.state.toLevels ? <Redirect to="/levels" /> : null}
-            {props.state.toLevel ? <Redirect to={`/level/${props.state.currentLevel + 1}`} /> : null}
+            {props.state.toLevels ? <Redirect to="/levels"/> : null}
+            {props.state.toLevel ? <Redirect to={`/level/${props.state.currentLevel + 1}`}/> : null}
         </div>
 
 }

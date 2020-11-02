@@ -15,13 +15,14 @@ const LevelFinish = ({...props}) => {
             width: "80%"
         },
         rating:{
+            display:"table",
             margin:"0 auto 0"
         }
     })
     const levelFinishStyle = levelFinishStyles()
     const toLevels=()=>{
         props.state.setState(state=>({...state,toLevels:true, isWord1Resolved: false,
-            currentLevel:state.currentLevel+1,
+            currentLevel:1,
             stars:0,
             letters: [],
             started: true,

@@ -23,7 +23,7 @@ export default function App() {
     points: [],
     previewLetter: [],
     currnetWord: "",
-    isGreen: false,
+    isWrong:false,
     wrongAttempts:0,
     isFinished:false,
     classes:[]
