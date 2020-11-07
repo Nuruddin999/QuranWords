@@ -22,7 +22,6 @@ const LevelFinish = ({...props}) => {
     const levelFinishStyle = levelFinishStyles()
     const toLevels=()=>{
         props.state.setState(state=>({...state,toLevels:true, isWord1Resolved: false,
-            currentLevel:1,
             stars:0,
             letters: [],
             started: true,
@@ -37,8 +36,7 @@ const LevelFinish = ({...props}) => {
             classes:[]}))
     }
     const toNextLevel=()=>{
-        props.state.setState(state=>({...state,toLevels:false, isWord1Resolved: false,
-            currentLevel:state.currentLevel+1,
+        props.state.setState(state=>({...state,toLevels:false,toLevel:true, isWord1Resolved: false,
             stars:0,
             letters: [],
             started: true,

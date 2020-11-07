@@ -79,9 +79,16 @@
     top: 20px;
     right: 80px
 }
+
 .l9 {
     top: 20px;
-    left: 80px;}
+    left: 80px;
+}
+
+.l10 {
+    bottom: 0px;
+    right: calc(50% - 20px);
+}
 
 canvas {
     position: absolute;

@@ -23,10 +23,10 @@ export function getCookie(cname) {
 
 export function checkCookie() {
     let data = getCookie("data");
-    if (data != "") {
+    if (data !== "") {
         return data
     } else {
-        let data = { finished: 1, stars: [{ "level": 0, "count": 0 },] }
+        let data = { finished: 0, stars: [{ "level": 0, "dates": 10 },] }
         setCookie("data", JSON.stringify(data));
     }
 }

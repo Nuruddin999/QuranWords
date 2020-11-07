@@ -7,8 +7,11 @@ import Levels from './Levels';
 import Main from './Main';
 import Level from './Level';
 import { levels } from './Data';
+import Prompt from "./Prompt";
+import {commonStyles} from "./Styles";
 
 export default function App() {
+  const styles=commonStyles()
   const [state, setState] = useState({
     currentLevel: 1,
     data: {},
@@ -26,14 +29,12 @@ export default function App() {
     isWrong:false,
     wrongAttempts:0,
     isFinished:false,
+    isPrompt:false,
+    notYourLevel:false,
     classes:[]
   })
-  useEffect(() => {
-    checkCookie()
-    let data = JSON.parse(getCookie("data"))
-    setState(state => ({ ...state, data }))
-  }, [])
   return <React.Fragment>
+    {state.isPrompt ? <div className={styles.prompt}><Prompt state={{state,setState}}/></div> : null}
     <Route
       path="/"
       exact
