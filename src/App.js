@@ -21,7 +21,7 @@ export default function App() {
     stars:0,
     dates:0,
     isPromptUsed:false,
-    letters: [],
+    noDatesWindow:false,
     started: true,
     linePoints: [],
     refList: [],

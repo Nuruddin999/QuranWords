@@ -9,12 +9,15 @@ import datesIcon from "./dates.png"
 import backIcon from "./backicon.png"
 import Prompt from "./Prompt";
 import {getCookie, setCookie} from "./cookies";
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
 
 const Level = ({...props}) => {
     const styles = commonStyles()
     const [isPrompt, setPrompt] = useState(false)
     let letters = props.levels[props.match.params.id - 1][0]
     let rightWord = props.levels[props.match.params.id - 1][1][0]
+    let nextLevel=Number(props.match.params.id)+1
     let word = letters[0].split("")
     let word1 = props.levels[props.match.params.id - 1][1][0].split("")
     let points = []
@@ -52,7 +55,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
         let linepoints = state.linePoints
         linepoints.push(index);
         let list = state.previewLetter
-        list.push(state.letters[index])
+        list.push(word[index])
         setState(state => ({...state, started: false, linePoints: linepoints, previewLetter: list}))
     }
     const isInDiv = (x, y, state, index) => {
@@ -89,14 +92,14 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
             drawLine(clientX, clientY);
         }
     }
-    const giveStars = () => {
+    const giveStars = (isStar) => {
         if (props.state.isPromptUsed) {
             switch (props.state.wrongAttempts) {
                 case 0:
-                    return 2;
+                    return isStar? 2:1;
                     break;
                 case 1:
-                    return 1;
+                    return isStar? 1:0;
                     break;
                 case 3:
                     return 0;
@@ -105,10 +108,10 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
         }
         switch (props.state.wrongAttempts) {
             case 0:
-                return 3;
+                return isStar ? 3:2;
                 break;
             case 1:
-                return 2;
+                return isStar ? 2:1;
                 break;
             case 3:
                 return 1;
@@ -118,7 +121,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
     const clearLine = (word) => {
         if (props.state.linePoints[0] >= 0) {
             if (word === rightWord) {
-                props.setState(state => ({...state, stars: giveStars(), isWord1Resolved: true}))
+                props.setState(state => ({...state, stars: giveStars(true), isWord1Resolved: true,dates:state.dates+giveStars(false)}))
             } else {
                 props.setState(state => ({...state, stars: 0, isWrong: true, wrongAttempts: state.wrongAttempts + 1}))
             }
@@ -166,15 +169,22 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
         }
 
     }
-
-    useEffect(() => {
-        if (props.state.letters.length === 0) {
-            props.setState(state => ({...state, letters: word}))
-        }
+    const useDates = () => {
         let data = JSON.parse(getCookie("data"))
+        if (data.dates < 3) {
+            props.setState(state => ({...state, noDatesWindow: true}))
+            setTimeout(() => props.setState(state => ({...state, noDatesWindow: false})), 1000)
+        } else {
+            setCookie("data", JSON.stringify({...data, dates: data.dates - 3}))
+            props.setState(state => ({
+                ...state,
+                isPrompt: true, dates: state.dates - 3, isPromptUsed: true
+            }))
+        }
 
 
-    }, [props.state.letters])
+    }
+
 
     useEffect(() => {
         if (props.state.refList.length === 0) {
@@ -200,6 +210,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                 ...state,
                 points,
                 dates: data.dates,
+                toLevel:false,
                 prompt: props.levels[props.match.params.id - 1][3]
             }))
         }
@@ -263,13 +274,15 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                 </div>
                 <canvas id="gameContainer" ref={refCanvas} onTouchStart={(e) => onTouchStart(e)}
                         onTouchMove={(e) => onTouchMove(e)} onTouchEnd={onTouchEnd}></canvas>
-                <div className={styles.iconBloc}><img src={helpIcon} onClick={() => props.setState(state => ({
-                    ...state,
-                    isPrompt: true, dates: state.dates - 3, isPromptUsed: true
-                }))}/></div>
+                <div className={styles.iconBloc}><img src={helpIcon} onClick={useDates}/></div>
 
                 {props.state.toLevels ? <Redirect to="/levels"/> : null}
-                {props.state.toLevel ? <Redirect to={`/level/${props.match.params.id + 1}`}/> : null}
+                {props.state.toLevel ? <Redirect to={`/level/${nextLevel}`}/> : null}
+                <Snackbar open={props.state.noDatesWindow}>
+                    <Alert severity="error">
+                        This is a success message!
+                    </Alert>
+                </Snackbar>
             </div>
 
 }
