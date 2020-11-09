@@ -90,6 +90,19 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
         }
     }
     const giveStars = () => {
+        if (props.state.isPromptUsed) {
+            switch (props.state.wrongAttempts) {
+                case 0:
+                    return 2;
+                    break;
+                case 1:
+                    return 1;
+                    break;
+                case 3:
+                    return 0;
+                    break;
+            }
+        }
         switch (props.state.wrongAttempts) {
             case 0:
                 return 3;
@@ -140,7 +153,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
     const giveNextLevel = () => {
         let data = JSON.parse(getCookie("data"))
         if (data.finished < Number(props.match.params.id)) {
-            setCookie("data", JSON.stringify({...data, finished: data.finished + 1}))
+            setCookie("data", JSON.stringify({...data, finished: data.finished + 1, dates: props.state.dates}))
         }
     }
     const displayContainer = () => {
@@ -173,6 +186,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
         if (Number(props.match.params.id) > JSON.parse(getCookie("data")).finished + 1) {
             props.setState(state => ({...state, notYourLevel: true}))
         } else if (props.state.points.length === 0) {
+            let data = JSON.parse(getCookie("data"))
             for (let index = 0; index < props.state.refList.length; index++) {
                 if (props.state.refList[index].current) {
                     let coordinats = {
@@ -182,7 +196,12 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                     points.push(coordinats)
                 }
             }
-            props.setState(state => ({...state, points, prompt: props.levels[props.match.params.id - 1][3]}))
+            props.setState(state => ({
+                ...state,
+                points,
+                dates: data.dates,
+                prompt: props.levels[props.match.params.id - 1][3]
+            }))
         }
 
 
@@ -208,17 +227,18 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
         }
     }, [props.state.isWord1Resolved, props.state.isWrong])
     return props.state.isFinished ?
-        <LevelFinish state={{state: props.state, setState: props.setState}}/> : props.state.notYourLevel ? <div className={styles.notYourLevel}>
+        <LevelFinish state={{state: props.state, setState: props.setState}}/> : props.state.notYourLevel ?
+            <div className={styles.notYourLevel}>
                 <span>Это не ваш уровень )))</span>
             </div>
-           :
+            :
             <div style={{zIndex: "-2", height: "100vh"}}>
                 <div className={styles.topIcons}>
                     <div className={styles.backIcon}>
                         <img src={backIcon} alt=""/></div>
                     <div className={styles.datesSec}>
                         <div className={styles.datesImg}><img src={datesIcon}/></div>
-                        <span>100</span>
+                        <span>{props.state.dates}</span>
                     </div>
                 </div>
 
@@ -245,7 +265,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                         onTouchMove={(e) => onTouchMove(e)} onTouchEnd={onTouchEnd}></canvas>
                 <div className={styles.iconBloc}><img src={helpIcon} onClick={() => props.setState(state => ({
                     ...state,
-                    isPrompt: true
+                    isPrompt: true, dates: state.dates - 3, isPromptUsed: true
                 }))}/></div>
 
                 {props.state.toLevels ? <Redirect to="/levels"/> : null}

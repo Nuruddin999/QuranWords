@@ -19,6 +19,8 @@ export default function App() {
     toLevel: false,
     isWord1Resolved: false,
     stars:0,
+    dates:0,
+    isPromptUsed:false,
     letters: [],
     started: true,
     linePoints: [],

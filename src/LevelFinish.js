@@ -19,36 +19,29 @@ const LevelFinish = ({...props}) => {
             margin:"0 auto 0"
         }
     })
+    let initState={
+        stars:0,
+        letters: [],
+        started: true,
+        linePoints: [],
+        isPromptUsed:false,
+        refList: [],
+        points: [],
+        previewLetter: [],
+        currnetWord: "",
+        isGreen: false,
+        wrongAttempts:0,
+        isFinished:false,
+        classes:[]
+    }
     const levelFinishStyle = levelFinishStyles()
     const toLevels=()=>{
         props.state.setState(state=>({...state,toLevels:true, isWord1Resolved: false,
-            stars:0,
-            letters: [],
-            started: true,
-            linePoints: [],
-            refList: [],
-            points: [],
-            previewLetter: [],
-            currnetWord: "",
-            isGreen: false,
-            wrongAttempts:0,
-            isFinished:false,
-            classes:[]}))
+            ...initState}))
     }
     const toNextLevel=()=>{
         props.state.setState(state=>({...state,toLevels:false,toLevel:true, isWord1Resolved: false,
-            stars:0,
-            letters: [],
-            started: true,
-            linePoints: [],
-            refList: [],
-            points: [],
-            previewLetter: [],
-            currnetWord: "",
-            isGreen: false,
-            wrongAttempts:0,
-            isFinished:false,
-            classes:[]}))
+          ...initState}))
     }
     return <Card className={levelFinishStyle.card}>
         <Typography align={"center"}>Поздравляем !!!</Typography>
