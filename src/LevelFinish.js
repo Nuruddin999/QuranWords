@@ -9,7 +9,9 @@ import Rating from '@material-ui/lab/Rating';
 const LevelFinish = ({...props}) => {
     const levelFinishStyles = makeStyles({
         card: {
-            margin: "200px 20px 0"
+            margin: "200px 20px 0",
+            background:"blueviolet",
+            color:"white"
         },
         buttons: {
             width: "80%"

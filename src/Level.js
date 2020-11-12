@@ -11,13 +11,28 @@ import Prompt from "./Prompt";
 import {getCookie, setCookie} from "./cookies";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
+import {LevelRepo} from "./LevelRepo";
+import {makeStyles} from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
 
 const Level = ({...props}) => {
     const styles = commonStyles()
+    const container = makeStyles({
+        mainContainer: {
+            zIndex: "-2", height: "100vh",
+            backgroundImage: `url(${props.levels[props.match.params.id - 1][4]})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            overflow:"hidden"
+        },
+    })
+    const containerStyle = container()
+    let repo = new LevelRepo()
     const [isPrompt, setPrompt] = useState(false)
     let letters = props.levels[props.match.params.id - 1][0]
     let rightWord = props.levels[props.match.params.id - 1][1][0]
-    let nextLevel=Number(props.match.params.id)+1
+    let nextLevel = Number(props.match.params.id) + 1
     let word = letters[0].split("")
     let word1 = props.levels[props.match.params.id - 1][1][0].split("")
     let points = []
@@ -93,40 +108,13 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
         }
     }
     const giveStars = (isStar) => {
-        if (props.state.isPromptUsed) {
-            switch (props.state.wrongAttempts) {
-                case 0:
-                    return isStar? 2:1;
-                    break;
-                case 1:
-                    return isStar? 1:0;
-                    break;
-                case 3:
-                    return 0;
-                    break;
-            }
-        }
-        switch (props.state.wrongAttempts) {
-            case 0:
-                return isStar ? 3:2;
-                break;
-            case 1:
-                return isStar ? 2:1;
-                break;
-            case 3:
-                return 1;
-                break;
-        }
+        repo.giveStars(isStar, props.state)
     }
     const clearLine = (word) => {
-        if (props.state.linePoints[0] >= 0) {
-            if (word === rightWord) {
-                props.setState(state => ({...state, stars: giveStars(true), isWord1Resolved: true,dates:state.dates+giveStars(false)}))
-            } else {
-                props.setState(state => ({...state, stars: 0, isWrong: true, wrongAttempts: state.wrongAttempts + 1}))
-            }
-        }
-
+        repo.clearLine({word, rightWord}, Number(props.match.params.id), {
+            state: props.state,
+            setState: props.setState
+        })
     }
     const onTouchEnd = (e) => {
         let prevWord = props.state.previewLetter
@@ -153,22 +141,8 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
         }
     }
 
-    const giveNextLevel = () => {
-        let data = JSON.parse(getCookie("data"))
-        if (data.finished < Number(props.match.params.id)) {
-            setCookie("data", JSON.stringify({...data, finished: data.finished + 1, dates: props.state.dates}))
-        }
-    }
-    const displayContainer = () => {
-        if (Number(props.match.params.id) < JSON.parse(getCookie("data")).finished + 1) {
-            return <div className="lContainer">
-                {word.map((letter, index) => <div
-                    className={`l ${props.levels[props.match.params.id - 1][2][index]}`}
-                    ref={props.state.refList[index]}>{letter}</div>)}
-            </div>
-        }
-
-    }
+    const giveNextLevel = () => repo.giveNextLevel(props.state, Number(props.match.params.id))
+    const backToLevels = () => props.setState(state => ({...state, toLevels: true}))
     const useDates = () => {
         let data = JSON.parse(getCookie("data"))
         if (data.dates < 3) {
@@ -181,10 +155,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                 isPrompt: true, dates: state.dates - 3, isPromptUsed: true
             }))
         }
-
-
     }
-
 
     useEffect(() => {
         if (props.state.refList.length === 0) {
@@ -192,6 +163,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
         }
 
     }, [props.state.refList])
+
     useEffect(() => {
         if (Number(props.match.params.id) > JSON.parse(getCookie("data")).finished + 1) {
             props.setState(state => ({...state, notYourLevel: true}))
@@ -210,13 +182,12 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                 ...state,
                 points,
                 dates: data.dates,
-                toLevel:false,
+                toLevel: false,
                 prompt: props.levels[props.match.params.id - 1][3]
             }))
         }
-
-
     }, [props.state.points])
+
     useEffect(() => {
         if (props.state.isWord1Resolved) {
             giveNextLevel()
@@ -237,16 +208,18 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
             })), 500)
         }
     }, [props.state.isWord1Resolved, props.state.isWrong])
-    return props.state.isFinished ?
-        <LevelFinish state={{state: props.state, setState: props.setState}}/> : props.state.notYourLevel ?
+
+    return props.state.notYourLevel ?
             <div className={styles.notYourLevel}>
                 <span>Это не ваш уровень )))</span>
             </div>
             :
-            <div style={{zIndex: "-2", height: "100vh"}}>
+            <div className={containerStyle.mainContainer}>
+                {props.state.isFinished ?  <LevelFinish state={{state: props.state, setState: props.setState}}/>:
+                    <React.Fragment>
                 <div className={styles.topIcons}>
-                    <div className={styles.backIcon}>
-                        <img src={backIcon} alt=""/></div>
+                    <div className={styles.backIcon} onClick={backToLevels}>
+                            <img src={backIcon} alt=""/></div>
                     <div className={styles.datesSec}>
                         <div className={styles.datesImg}><img src={datesIcon}/></div>
                         <span>{props.state.dates}</span>
@@ -254,13 +227,13 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                 </div>
 
                 <div id="wContainer">
-                    <div id="topBar" className={styles.topBar}>
-                        <h3 id="levelDiv"><span id="level">уровень</span> <span
-                            id="levelNum">{props.match.params.id}</span></h3>
-                        <div id="wcont">
+                    <div  className={styles.topBar}>
+                        <Card className={styles.level}><span>уровень</span><span
+                        id="levelNum">{props.match.params.id}</span></Card>
+                        <div className={styles.sqwrapper}>
                             {props.state.isWord1Resolved ?
-                                <span className={styles.prevWord}>{word1}</span> : word1.map(letter =>
-                                    <div className="wl"></div>)}
+                                <Card><span className={styles.prevWord}>{word1}</span></Card> : word1.map(letter =>
+                                    <Card className={styles.square}><div className="wl"></div></Card>)}
                         </div>
                     </div>
                 </div>
@@ -275,7 +248,6 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                 <canvas id="gameContainer" ref={refCanvas} onTouchStart={(e) => onTouchStart(e)}
                         onTouchMove={(e) => onTouchMove(e)} onTouchEnd={onTouchEnd}></canvas>
                 <div className={styles.iconBloc}><img src={helpIcon} onClick={useDates}/></div>
-
                 {props.state.toLevels ? <Redirect to="/levels"/> : null}
                 {props.state.toLevel ? <Redirect to={`/level/${nextLevel}`}/> : null}
                 <Snackbar open={props.state.noDatesWindow}>
@@ -283,8 +255,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                         This is a success message!
                     </Alert>
                 </Snackbar>
+                </React.Fragment> }
             </div>
-
 }
-
 export default withRouter(Level);

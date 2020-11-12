@@ -12,13 +12,34 @@ export const commonStyles = makeStyles({
     topBar: {
         textAlign: "center"
     },
+    level:{
+        display:"table",
+        margin:"0 auto 0",
+        padding:".5em 1em"
+    },
+    sqwrapper:{
+        margin:".5em",
+      display:"flex",
+        justifyContent:"center"
+    },
+    square:{
+        display:"block",
+        width:"2em",
+        margin:"0 .2em"
+    },
+
     iconBloc: {
         width: "2em",
         height: "2em",
         position: "absolute",
         bottom: "1em",
         left: "calc(90% - 2em)",
-        zIndex: "4"
+        zIndex: "4",
+        padding:"0.3em .5em",
+        background:"#b1b1b1",
+        borderRadius:"40%",
+
+        boxShadow: "0px 1px 1px 0px #000",
     },
     prompt: {
         height: "100vh",
@@ -26,7 +47,6 @@ export const commonStyles = makeStyles({
         position: "absolute",
         top: "0",
         left: "0",
-        zIndex: "5",
         backgroundColor: "rgb(0,0,0)",
         backgroundColor: "rgba(0,0,0,0.4)",
         display: "flex"
@@ -39,12 +59,14 @@ export const commonStyles = makeStyles({
         backgroundColor: "#fff",
         "& span": {
             display: "block"
-        }
+        },
+        zIndex:"5"
     },
     promptCard: {
         height: "100%", padding: "1em"
     },
     promptBtn: {
+
         width: "30%",
         marginRight: "1em",
         float: "right",
@@ -57,7 +79,11 @@ export const commonStyles = makeStyles({
     },
     datesSec:{
         display:"flex",
-        alignItems:"center"
+        alignItems:"center", borderRadius:"20%",
+        boxShadow: "0px 1px 1px 0px #000",
+        background:"#b1b1b1",
+        padding:"0.1em .5em",
+       color:"white"
     },
     datesImg:{
         width:"2em",
@@ -69,6 +95,11 @@ export const commonStyles = makeStyles({
     backIcon:{
         width:"2em",
         height:"2em",
+        zIndex:"4",
+        borderRadius:"40%",
+        padding:"0.1em .5em",
+        background:"#b1b1b1",
+        boxShadow: "0px 1px 1px 0px #000",
         "& img":{
             width:"100%"
         }
