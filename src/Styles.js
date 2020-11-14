@@ -32,7 +32,7 @@ export const commonStyles = makeStyles({
         width: "2em",
         height: "2em",
         position: "absolute",
-        bottom: "1em",
+        bottom: "100px",
         left: "calc(90% - 2em)",
         zIndex: "4",
         padding:"0.3em .5em",
@@ -53,7 +53,7 @@ export const commonStyles = makeStyles({
     },
     promptContainer: {
         display: "block",
-        width: "80%",
+        width: "100%",
         position: "relative",
         margin: "auto",
         backgroundColor: "#fff",

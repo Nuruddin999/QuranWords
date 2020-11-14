@@ -17,17 +17,6 @@ import Card from "@material-ui/core/Card";
 
 const Level = ({...props}) => {
     const styles = commonStyles()
-    const container = makeStyles({
-        mainContainer: {
-            zIndex: "-2", height: "100vh",
-            backgroundImage: `url(${props.levels[props.match.params.id - 1][4]})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            overflow:"hidden"
-        },
-    })
-    const containerStyle = container()
     let repo = new LevelRepo()
     const [isPrompt, setPrompt] = useState(false)
     let letters = props.levels[props.match.params.id - 1][0]
@@ -83,7 +72,6 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
             var touchObject = e.changedTouches[0]
             let clientX = touchObject.clientX
             let clientY = touchObject.clientY
-            console.log("start: " + clientX + " " + clientY)
             for (let index = 0; index < props.state.points.length; index++) {
                 if (isInDiv(clientX, clientY, props.state, index)) {
                     showLineAndPrevLetter(props.state, props.setState, index)
@@ -96,7 +84,6 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
             var touchObject = e.changedTouches[0]
             let clientX = touchObject.clientX
             let clientY = touchObject.clientY
-            console.log("end: " + clientX + " " + clientY)
             for (let index = 0; index < props.state.points.length; index++) {
                 if (isInDiv(clientX, clientY, props.state, index)) {
                     if (props.state.linePoints.indexOf(index) === -1) {
@@ -144,7 +131,11 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
     const giveNextLevel = () => repo.giveNextLevel(props.state, Number(props.match.params.id))
     const backToLevels = () => props.setState(state => ({...state, toLevels: true}))
     const useDates = () => {
-        let data = JSON.parse(getCookie("data"))
+        props.setState(state => ({
+            ...state,
+            isPrompt: false, isPromptUsed: true
+        }))
+     /*   let data = JSON.parse(getCookie("data"))
         if (data.dates < 3) {
             props.setState(state => ({...state, noDatesWindow: true}))
             setTimeout(() => props.setState(state => ({...state, noDatesWindow: false})), 1000)
@@ -154,7 +145,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                 ...state,
                 isPrompt: true, dates: state.dates - 3, isPromptUsed: true
             }))
-        }
+        }*/
     }
 
     useEffect(() => {
@@ -183,7 +174,8 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                 points,
                 dates: data.dates,
                 toLevel: false,
-                prompt: props.levels[props.match.params.id - 1][3]
+                prompt: props.levels[props.match.params.id - 1][3],
+                back:`url(${props.levels[props.match.params.id - 1][4]})`
             }))
         }
     }, [props.state.points])
@@ -214,7 +206,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                 <span>Это не ваш уровень )))</span>
             </div>
             :
-            <div className={containerStyle.mainContainer}>
+            <div>
                 {props.state.isFinished ?  <LevelFinish state={{state: props.state, setState: props.setState}}/>:
                     <React.Fragment>
                 <div className={styles.topIcons}>

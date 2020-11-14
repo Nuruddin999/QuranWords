@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 const Prompt = (props) => {
     const styles = commonStyles()
     const handleClick=()=>{
-        props.state.setState(state=>({...state,isPrompt:false}))
+        props.state.setState(state=>({...state,isPrompt:true}))
     }
 
     return <div className={styles.promptContainer}><Card className={styles.promptCard}>

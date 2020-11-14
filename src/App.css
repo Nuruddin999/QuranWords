@@ -17,7 +17,7 @@
     position: absolute;
     /* transition: transform 0.5s linear;
     transform: scale(0) rotate(0); */
-    top: 45%;
+    top: 30%;
     left: 10px;
     height: 250px;
     width: calc(100% - 20px);

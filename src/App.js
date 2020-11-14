@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { checkCookie, getCookie } from './cookies';
@@ -9,6 +9,7 @@ import Level from './Level';
 import { levels } from './Data';
 import Prompt from "./Prompt";
 import {commonStyles} from "./Styles";
+import {makeStyles} from "@material-ui/core/styles";
 
 export default function App() {
   const styles=commonStyles()
@@ -33,10 +34,25 @@ export default function App() {
     isFinished:false,
     isPrompt:false,
     notYourLevel:false,
-    classes:[]
+    classes:[],
+    back:"",
   })
-  return <React.Fragment>
-    {state.isPrompt ? <div className={styles.prompt}><Prompt state={{state,setState}}/></div> : null}
+  const refCont=useRef(null)
+  const container = makeStyles({
+    mainContainer: {
+      zIndex: "-2", height: "100vh",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      overflow:"hidden"
+    },
+  })
+  useEffect(()=>{
+    refCont.current.style.backgroundImage=state.back
+  },[state.back])
+  const containerStyle = container()
+  return <div ref={refCont} className={containerStyle.mainContainer}>
+    {!state.isPrompt ? <div className={styles.prompt}><Prompt state={{state,setState}}/></div> : null}
     <Route
       path="/"
       exact
@@ -50,7 +66,7 @@ export default function App() {
       path="/level/:id"
       render={prop => <Level state={state} setState={setState} levels={levels} />}
     />
-  </React.Fragment>
+  </div>
 
 }
 
