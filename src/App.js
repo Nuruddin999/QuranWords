@@ -50,6 +50,9 @@ export default function App() {
   useEffect(()=>{
     refCont.current.style.backgroundImage=state.back
   },[state.back])
+  useEffect(()=>{
+  setState(state=>({...state,isPrompt:true}))
+  },[])
   const containerStyle = container()
   return <div ref={refCont} className={containerStyle.mainContainer}>
     {!state.isPrompt ? <div className={styles.prompt}><Prompt state={{state,setState}}/></div> : null}

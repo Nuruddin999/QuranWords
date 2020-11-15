@@ -4,6 +4,9 @@ export const commonStyles = makeStyles({
     prevWord: {
         display: "block",
         textAlign: "center",
+        fontFamily:'Tajawal',
+        padding:".5em 1em",
+        fontSize:"2em",
         green: {
             display: "block",
             textAlign: "center"
@@ -12,34 +15,39 @@ export const commonStyles = makeStyles({
     topBar: {
         textAlign: "center"
     },
-    level:{
-        display:"table",
-        margin:"0 auto 0",
-        padding:".5em 1em"
+    level: {
+        display: "table",
+        margin: "0 auto 0",
+        padding: ".5em 1em"
     },
-    sqwrapper:{
-        margin:".5em",
-      display:"flex",
-        justifyContent:"center"
+    sqwrapper: {
+        margin: ".5em",
+        display: "flex",
+        justifyContent: "center"
     },
-    square:{
-        display:"block",
-        width:"2em",
-        margin:"0 .2em"
+    square: {
+        display: "block",
+        width: "2em",
+        margin: "0 .2em"
     },
-
+    bottomIcons: {
+        width:"100%",
+        display: "flex",
+        justifyContent: "space-around",
+        position:"absolute",
+        bottom:"15%"
+    },
     iconBloc: {
         width: "2em",
         height: "2em",
-        position: "absolute",
-        bottom: "100px",
-        left: "calc(90% - 2em)",
         zIndex: "4",
-        padding:"0.3em .5em",
-        background:"#b1b1b1",
-        borderRadius:"40%",
-
+        padding: "0.3em .5em",
+        background: "#b1b1b1",
+        borderRadius: "40%",
         boxShadow: "0px 1px 1px 0px #000",
+        "& img":{
+            width:"100%"
+        }
     },
     prompt: {
         height: "100vh",
@@ -60,7 +68,7 @@ export const commonStyles = makeStyles({
         "& span": {
             display: "block"
         },
-        zIndex:"5"
+        zIndex: "5"
     },
     promptCard: {
         height: "100%", padding: "1em"
@@ -71,43 +79,47 @@ export const commonStyles = makeStyles({
         marginRight: "1em",
         float: "right",
     },
-    topIcons:{
-        padding:".5em",
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"space-between"
+    topIcons: {
+        padding: ".5em",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between"
     },
-    datesSec:{
-        display:"flex",
-        alignItems:"center", borderRadius:"20%",
+    datesSec: {
+        display: "flex",
+        alignItems: "center", borderRadius: "20%",
         boxShadow: "0px 1px 1px 0px #000",
-        background:"#b1b1b1",
-        padding:"0.1em .5em",
-       color:"white"
+        background: "#b1b1b1",
+        padding: "0.1em .5em",
+        color: "white"
     },
-    datesImg:{
-        width:"2em",
-        height:"2em",
-        "& img":{
-            width:"100%"
+    datesImg: {
+        width: "2em",
+        height: "2em",
+        "& img": {
+            width: "100%"
         }
     },
-    backIcon:{
-        width:"2em",
-        height:"2em",
-        zIndex:"4",
-        borderRadius:"40%",
-        padding:"0.1em .5em",
-        background:"#b1b1b1",
+    backIcon: {
+        width: "2em",
+        height: "2em",
+        zIndex: "4",
+        borderRadius: "40%",
+        padding: "0.1em .5em",
+        background: "#b1b1b1",
         boxShadow: "0px 1px 1px 0px #000",
-        "& img":{
-            width:"100%"
+        "& img": {
+            width: "100%"
         }
     },
-    notYourLevel:{
-        display:"flex","& span":{
-            display:"block",
-            margin:"auto"
+    notYourLevel: {
+        display: "flex", "& span": {
+            display: "block",
+            margin: "auto"
         }
+    },
+    levels: {
+        height: "100%",
+        background: "white"
     }
 })

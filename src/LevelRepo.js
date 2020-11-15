@@ -13,20 +13,22 @@ export function LevelRepo() {
             }))
         }
     }
+    this.compareWords=(words,state,id,data)=>{
+        if (words.word === words.rightWord) {
+            state.setState(state => ({
+                ...state,
+                stars: this.giveStars(true,state),
+                isWord1Resolved: true,
+                dates: id < data.finished + 1 ? data.dates : state.dates + this.giveStars(false,state)
+            }))
+        } else {
+            state.setState(state => ({...state, stars: 0, isWrong: true, wrongAttempts: state.wrongAttempts + 1}))
+        }
+    }
     this.clearLine = (words, id, state) => {
         let data = JSON.parse(getCookie("data"))
-        let finished = data.finished
         if (state.state.linePoints[0] >= 0) {
-            if (words.word === words.rightWord) {
-                state.setState(state => ({
-                    ...state,
-                    stars: this.giveStars(true,state),
-                    isWord1Resolved: true,
-                    dates: id < finished + 1 ? data.dates : state.dates + this.giveStars(false,state)
-                }))
-            } else {
-                state.setState(state => ({...state, stars: 0, isWrong: true, wrongAttempts: state.wrongAttempts + 1}))
-            }
+            this.compareWords(words,state,id,data)
         }
 
     }
