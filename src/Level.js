@@ -1,23 +1,41 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import "./App.css";
 import LevelFinish from "./LevelFinish";
-import {commonStyles} from "./Styles";
-import {Redirect, withRouter} from "react-router-dom";
+import { commonStyles } from "./Styles";
+import { Redirect, withRouter } from "react-router-dom";
 import helpIcon from "./help.svg"
 import datesIcon from "./dates.png"
 import backIcon from "./backicon.png"
 import checkIcon from "./img/check.svg"
 import Prompt from "./Prompt";
-import {getCookie, setCookie} from "./cookies";
+import { getCookie, setCookie } from "./cookies";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
-import {LevelRepo} from "./LevelRepo";
-import {makeStyles} from "@material-ui/core/styles";
+import { LevelRepo } from "./LevelRepo";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 
-const Level = ({...props}) => {
+const Level = ({ ...props }) => {
     const styles = commonStyles()
+    const [state, setState] = useState({
+        margin: "0", mouseDown: false,
+    })
+    const prevWordStyle = makeStyles({
+        prevWord: {
+            display: "block",
+            textAlign: "center",
+            fontFamily: 'Tajawal',
+            margin: props.state.margin,
+            padding: ".5em 1em",
+            fontSize: "2em",
+            transition: "margin 1s",
+            background: "blueviolet",
+            borderRadius: "20%",
+            color: "white"
+        },
+    })
+    const prevwordStyle = prevWordStyle()
     let repo = new LevelRepo()
     const [isPrompt, setPrompt] = useState(false)
     let letters = props.levels[props.match.params.id - 1][0]
@@ -61,7 +79,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
         linepoints.push(index);
         let list = state.previewLetter
         list.push(word[index])
-        setState(state => ({...state, started: false, linePoints: linepoints, previewLetter: list}))
+        setState(state => ({ ...state, started: false, linePoints: linepoints, previewLetter: list }))
     }
     const isInDiv = (x, y, state, index) => {
         let clientXInLetter = x >= state.points[index].x && x <= state.points[index].x + letterWidth
@@ -70,9 +88,8 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
     }
     const onTouchStart = (e) => {
         if (props.state.started) {
-            var touchObject = e.changedTouches[0]
-            let clientX = touchObject.clientX
-            let clientY = touchObject.clientY
+            let clientX = e.changedTouches[0].clientX
+            let clientY = e.changedTouches[0].clientY
             for (let index = 0; index < props.state.points.length; index++) {
                 if (isInDiv(clientX, clientY, props.state, index)) {
                     showLineAndPrevLetter(props.state, props.setState, index)
@@ -82,9 +99,8 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
     }
     const onTouchMove = (e) => {
         if (!props.started) {
-            var touchObject = e.changedTouches[0]
-            let clientX = touchObject.clientX
-            let clientY = touchObject.clientY
+            let clientX = e.changedTouches[0].clientX
+            let clientY = e.changedTouches[0].clientY
             for (let index = 0; index < props.state.points.length; index++) {
                 if (isInDiv(clientX, clientY, props.state, index)) {
                     if (props.state.linePoints.indexOf(index) === -1) {
@@ -99,12 +115,12 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
         repo.giveStars(isStar, props.state)
     }
     const clearLine = (word) => {
-        repo.clearLine({word, rightWord}, Number(props.match.params.id), {
+        repo.clearLine({ word, rightWord }, Number(props.match.params.id), {
             state: props.state,
             setState: props.setState
         })
     }
-    const onTouchEnd = (e) => {
+    const onTouchEnd = (e, mouse) => {
         let prevWord = props.state.previewLetter
         clearLine(prevWord.join(""))
         props.setState(state => ({
@@ -112,9 +128,47 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
             currnetWord: prevWord.join(""),
             linePoints: [],
         }))
+        setState(state => ({ mouseDown: false }))
 
     }
-
+    const mouseDown = (e) => {
+        setState(state => ({ ...state, mouseDown: true }))
+        if (props.state.started) {
+            let clientX = e.clientX
+            let clientY = e.clientY
+            for (let index = 0; index < props.state.points.length; index++) {
+                if (isInDiv(clientX, clientY, props.state, index)) {
+                    showLineAndPrevLetter(props.state, props.setState, index)
+                }
+            }
+        }
+    }
+    const mouseMove = (e) => {
+        if (state.mouseDown) {
+            if (!props.started) {
+                let clientX = e.clientX
+                let clientY = e.clientY
+                for (let index = 0; index < props.state.points.length; index++) {
+                    if (isInDiv(clientX, clientY, props.state, index)) {
+                        if (props.state.linePoints.indexOf(index) === -1) {
+                            showLineAndPrevLetter(props.state, props.setState, index)
+                        }
+                    }
+                }
+                drawLine(clientX, clientY);
+            }
+        }
+    }
+    const mouseUp = (e) => {
+        let prevWord = props.state.previewLetter
+        clearLine(prevWord.join(""))
+        props.setState(state => ({
+            ...state,
+            currnetWord: prevWord.join(""),
+            linePoints: [],
+        }))
+        setState(state => ({ ...state, mouseDown: false }))
+    }
     function drawLine(x, y) {
         if (props.state.linePoints[0] >= 0) {
             ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
@@ -130,15 +184,18 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
     }
 
     const giveNextLevel = () => repo.giveNextLevel(props.state, Number(props.match.params.id))
-    const backToLevels = () => props.setState(state => ({...state, toLevels: true}))
+    const backToLevels = () => props.setState(state => ({ ...state, toLevels: true }))
     const openWord = () => {
         let data = JSON.parse(getCookie("data"))
         if (data.dates < 3) {
-            props.setState(state => ({...state, noDatesWindow: true}))
-            setTimeout(() => props.setState(state => ({...state, noDatesWindow: false})), 1000)
+            props.setState(state => ({ ...state, noDatesWindow: true }))
+            setTimeout(() => props.setState(state => ({ ...state, noDatesWindow: false })), 1000)
         } else {
-            setCookie("data", JSON.stringify({...data, dates: data.dates - 3}))
-            repo.compareWords({word: rightWord, rightWord}, {state: props.state, setState: props.setState}, Number(props.match.params.id),data)
+            setCookie("data", JSON.stringify({ ...data, dates: data.dates - 3 }))
+            repo.compareWords({ word: rightWord, rightWord }, {
+                state: props.state,
+                setState: props.setState
+            }, Number(props.match.params.id), data)
         }
     }
     const useDates = () => {
@@ -151,14 +208,14 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
 
     useEffect(() => {
         if (props.state.refList.length === 0) {
-            props.setState(state => ({...state, refList}))
+            props.setState(state => ({ ...state, refList }))
         }
 
     }, [props.state.refList])
 
     useEffect(() => {
         if (Number(props.match.params.id) > JSON.parse(getCookie("data")).finished + 1) {
-            props.setState(state => ({...state, notYourLevel: true}))
+            props.setState(state => ({ ...state, notYourLevel: true }))
         } else if (props.state.points.length === 0) {
             let data = JSON.parse(getCookie("data"))
             for (let index = 0; index < props.state.refList.length; index++) {
@@ -209,13 +266,13 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
         </div>
         :
         <div>
-            {props.state.isFinished ? <LevelFinish state={{state: props.state, setState: props.setState}}/> :
+            {props.state.isFinished ? <LevelFinish state={{ state: props.state, setState: props.setState }} /> :
                 <React.Fragment>
                     <div className={styles.topIcons}>
                         <div className={styles.backIcon} onClick={backToLevels}>
-                            <img src={backIcon} alt=""/></div>
+                            <img src={backIcon} alt="" /></div>
                         <div className={styles.datesSec}>
-                            <div className={styles.datesImg}><img src={datesIcon}/></div>
+                            <div className={styles.datesImg}><img src={datesIcon} /></div>
                             <span>{props.state.dates}</span>
                         </div>
                     </div>
@@ -225,30 +282,31 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                                 id="levelNum">{props.match.params.id}</span></Card>
                             <div className={styles.sqwrapper}>
                                 {props.state.isWord1Resolved ?
-                                    <Card><span className={styles.prevWord}>{rightWord}</span></Card> : word1.map(letter =>
-                                        <Card className={styles.square}>
-                                            <div className="wl"></div>
-                                        </Card>)}
+                                    <Card
+                                        className={prevwordStyle.prevWord}><span>{rightWord}</span></Card> : word1.map(letter =>
+                                            <Card className={styles.square}>
+                                                <div className="wl"></div>
+                                            </Card>)}
                             </div>
                         </div>
                     </div>
                     {!props.state.started ?
-                        <Preview end={{green: props.state.isWord1Resolved, wrong: props.state.isWrong}}
-                                 id="preview">{props.state.previewLetter.join("")}</Preview> : null}
-                    {!props.state.isWord1Resolved   ?    <div className="lContainer">
+                        <Preview end={{ green: props.state.isWord1Resolved, wrong: props.state.isWrong }}
+                            id="preview">{props.state.previewLetter.join("")}</Preview> : null}
+                    {!props.state.isWord1Resolved ? <div className="lContainer">
                         {word.map((letter, index) => <div
                             className={`l ${props.levels[props.match.params.id - 1][2][index]}`}
                             ref={props.state.refList[index]}>{letter}</div>)}
-                    </div> :null}
+                    </div> : null}
 
                     <canvas id="gameContainer" ref={refCanvas} onTouchStart={(e) => onTouchStart(e)}
-                            onTouchMove={(e) => onTouchMove(e)} onTouchEnd={onTouchEnd}></canvas>
+                        onTouchMove={(e) => onTouchMove(e)} onTouchEnd={onTouchEnd} onMouseDown={mouseDown} onMouseMove={mouseMove} onMouseUp={mouseUp}></canvas>
                     <div className={styles.bottomIcons}>
-                        <div className={styles.iconBloc}><img src={checkIcon} onClick={openWord}/></div>
-                        <div className={styles.iconBloc}><img src={helpIcon} onClick={useDates}/></div>
+                        <div className={styles.iconBloc}><img src={checkIcon} onClick={openWord} /></div>
+                        <div className={styles.iconBloc}><img src={helpIcon} onClick={useDates} /></div>
                     </div>
-                    {props.state.toLevels ? <Redirect to="/levels"/> : null}
-                    {props.state.toLevel ? <Redirect to={`/level/${nextLevel}`}/> : null}
+                    {props.state.toLevels ? <Redirect to="/levels" /> : null}
+                    {props.state.toLevel ? <Redirect to={`/level/${nextLevel}`} /> : null}
                     <Snackbar open={props.state.noDatesWindow}>
                         <Alert severity="error">
                             This is a success message!

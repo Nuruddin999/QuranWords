@@ -1,17 +1,6 @@
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 export const commonStyles = makeStyles({
-    prevWord: {
-        display: "block",
-        textAlign: "center",
-        fontFamily:'Tajawal',
-        padding:".5em 1em",
-        fontSize:"2em",
-        green: {
-            display: "block",
-            textAlign: "center"
-        }
-    },
     topBar: {
         textAlign: "center"
     },
@@ -31,11 +20,11 @@ export const commonStyles = makeStyles({
         margin: "0 .2em"
     },
     bottomIcons: {
-        width:"100%",
+        width: "100%",
         display: "flex",
         justifyContent: "space-around",
-        position:"absolute",
-        bottom:"15%"
+        position: "absolute",
+        bottom: "15%"
     },
     iconBloc: {
         width: "2em",
@@ -45,8 +34,8 @@ export const commonStyles = makeStyles({
         background: "#b1b1b1",
         borderRadius: "40%",
         boxShadow: "0px 1px 1px 0px #000",
-        "& img":{
-            width:"100%"
+        "& img": {
+            width: "100%"
         }
     },
     prompt: {
@@ -57,18 +46,6 @@ export const commonStyles = makeStyles({
         left: "0",
         backgroundColor: "rgb(0,0,0)",
         backgroundColor: "rgba(0,0,0,0.4)",
-        display: "flex"
-    },
-    promptContainer: {
-        display: "block",
-        width: "100%",
-        position: "relative",
-        margin: "auto",
-        backgroundColor: "#fff",
-        "& span": {
-            display: "block"
-        },
-        zIndex: "5"
     },
     promptCard: {
         height: "100%", padding: "1em"

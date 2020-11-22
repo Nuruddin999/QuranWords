@@ -19,6 +19,7 @@ export function LevelRepo() {
                 ...state,
                 stars: this.giveStars(true,state),
                 isWord1Resolved: true,
+                margin:"2em",
                 dates: id < data.finished + 1 ? data.dates : state.dates + this.giveStars(false,state)
             }))
         } else {
