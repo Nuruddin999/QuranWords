@@ -12,8 +12,9 @@ const LevelFinish = ({ ...props }) => {
     const levelFinishStyles = makeStyles({
         card: {
             margin: "200px 20px 0",
-            background: "blueviolet",
+            background: "#8f2fff",
             color: "white",
+            borderRadius: "10px",
         },
         buttons: {
             width: "1em",

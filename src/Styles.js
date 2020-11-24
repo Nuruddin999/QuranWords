@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-
+import desert from "./img/desert.png"
 export const commonStyles = makeStyles({
     topBar: {
         textAlign: "center"
@@ -97,6 +97,33 @@ export const commonStyles = makeStyles({
     },
     levels: {
         height: "100%",
-        background: "white"
+        backgroundImage: `url(${desert})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        overflow: "auto"
+    },
+    levelArk: {
+        display: "block",
+        width: "calc(50% - 2em)",
+        borderTopLeftRadius: "40%",
+        borderTopRightRadius: "40%",
+        margin: ".5em",
+    },
+    starsLevels: {
+        display: "block",
+        textAlign: "center",
+        paddingBottom: ".2em",
+        color: "white"
+    },
+    levelsDates: {
+        width: "2em"
+    },
+    levelsDatesSec: {
+        display: "flex",
+        alignItems: "center",
+        margin: ".5em",
+        color: "white"
     }
+
 })
