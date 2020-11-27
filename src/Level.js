@@ -173,9 +173,9 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
         if (props.state.linePoints[0] >= 0) {
             ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
             ctx.beginPath();
-            ctx.moveTo(props.state.points[props.state.linePoints[0]].x + letterWidth / 2, props.state.points[props.state.linePoints[0]].y + letterWidth / 2);
+            ctx.moveTo(props.state.points[props.state.linePoints[0]].x + letterWidth / 2, props.state.points[props.state.linePoints[0]].y + 50 / 2);
             for (let n = 1; n < props.state.linePoints.length; n++) {
-                ctx.lineTo(props.state.points[props.state.linePoints[n]].x + letterWidth / 2, props.state.points[props.state.linePoints[n]].y + letterWidth / 2);
+                ctx.lineTo(props.state.points[props.state.linePoints[n]].x + letterWidth / 2, props.state.points[props.state.linePoints[n]].y + 50 / 2);
             }
             ctx.lineTo(x, y);
             ctx.stroke();
