@@ -10,6 +10,7 @@ import { levels } from './Data';
 import Prompt from "./Prompt";
 import { commonStyles } from "./Styles";
 import { makeStyles } from "@material-ui/core/styles";
+import Guide from './Guide';
 
 export default function App() {
   const styles = commonStyles()
@@ -61,6 +62,10 @@ export default function App() {
       path="/"
       exact
       render={prop => <Main state={{ state, setState }} />}
+    />
+    <Route
+      path="/guide"
+      render={prop => <Guide state={{ state, setState }} />}
     />
     <Route
       path="/levels"

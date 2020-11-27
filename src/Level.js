@@ -283,10 +283,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                             <div className={styles.sqwrapper}>
                                 {props.state.isWord1Resolved ?
                                     <Card
-                                        className={prevwordStyle.prevWord}><span>{rightWord}</span></Card> : word1.map(letter =>
-                                            <Card className={styles.square}>
-                                                <div className="wl"></div>
-                                            </Card>)}
+                                        className={prevwordStyle.prevWord}><span>{rightWord}</span></Card> : null}
                             </div>
                         </div>
                     </div>
