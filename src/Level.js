@@ -83,7 +83,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
     }
     const isInDiv = (x, y, state, index) => {
         let clientXInLetter = x >= state.points[index].x && x <= state.points[index].x + letterWidth
-        let clientYInLetter = y >= state.points[index].y && y <= state.points[index].y + letterWidth
+        let clientYInLetter = y >= state.points[index].y && y <= state.points[index].y + 50
         return clientXInLetter && clientYInLetter
     }
     const onTouchStart = (e) => {
