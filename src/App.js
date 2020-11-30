@@ -42,11 +42,11 @@ export default function App() {
   const refCont = useRef(null)
   const container = makeStyles({
     mainContainer: {
-      zIndex: "-2", height: "100vh",
+      zIndex: "-2", height: "100%",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
       backgroundPosition: "center",
-      overflow: "hidden"
+      overflow: "auto"
     },
   })
   useEffect(() => {

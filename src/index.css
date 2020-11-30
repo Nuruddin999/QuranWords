@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
   margin: 0;
   overflow: hidden;
   font-family: "Tajawal", sans-serif;
@@ -11,9 +10,11 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
 :root {
   font-size: calc(1em + 1vw);
 }
+
 #root {
   position: relative;
   height: 100vh;

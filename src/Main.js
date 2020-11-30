@@ -7,7 +7,9 @@ const Main = ({ ...props }) => {
     return (
         <div className="App">
             <h2 id="complete"><span id="title">Арабские слова</span></h2>
-            <button onClick={onClick}>Играть</button>
+            <a href="/guide">
+                <button>Играть</button>
+            </a>
             {props.state.state.toLevels ? <Redirect to="/guide" /> : null}
         </div>
     );
