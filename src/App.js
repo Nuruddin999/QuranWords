@@ -38,6 +38,7 @@ export default function App() {
     classes: [],
     back: "",
     margin: "0",
+    prompt: {}
   })
   const refCont = useRef(null)
   const container = makeStyles({

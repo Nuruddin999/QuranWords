@@ -48,7 +48,7 @@ export const commonStyles = makeStyles({
         backgroundColor: "rgba(0,0,0,0.4)",
     },
     promptCard: {
-        height: "100%", padding: "1em"
+        height: "100%", padding: ".6em"
     },
     promptBtn: {
 
