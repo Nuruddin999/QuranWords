@@ -71,6 +71,29 @@ let lvls = [{
     },
     img: ornament
 },
+{
+    mainword: "بجيت",
+    word1: "بيت",
+    coordinats: ["l8", "l9", "l6", "l7"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Курейш ", "Аль-Филь", "Ан-Наср"],
+        letters: 3
+    },
+    img: ornament
+},
+{
+    mainword: "سخوف",
+    word1: "خوف",
+    coordinats: ["l8", "l9", "l6", "l7"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Аль-Каусар", "Аль-Филь", "Курейш"],
+        letters: 3
+    },
+    img: ornament
+},
+
 
 ]
 
