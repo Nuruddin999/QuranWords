@@ -4,6 +4,10 @@ import kairun from "./img/kairun.jpg"
 import alkar from "./img/alkar.jpg"
 import madina from "./img/madina.jpg"
 import ornament from "./img/ornament.jpg"
+import purple from "./img/purple.jpg"
+import zayed from "./img/zayed.jpg"
+import sunset from "./img/sunset.jpg"
+import stambul from "./img/stambul.jpg"
 export let levels = []
 let lvls = [{
     mainword: "ملكس",
@@ -80,7 +84,7 @@ let lvls = [{
         suras: ["Курейш ", "Аль-Филь", "Ан-Наср"],
         letters: 3
     },
-    img: ornament
+    img: purple
 },
 {
     mainword: "سخوف",
@@ -91,8 +95,42 @@ let lvls = [{
         suras: ["Аль-Каусар", "Аль-Филь", "Курейш"],
         letters: 3
     },
-    img: ornament
+    img: zayed
 },
+{
+    mainword: "حطمة",
+    word1: "حطمة",
+    coordinats: ["l8", "l9", "l6", "l7"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Аль-Маун", "Курейш", "Аль-Хумаза"],
+        letters: 4
+    },
+    img: sunset
+},
+{
+    mainword: "جحيسم",
+    word1: "جحيم",
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Ат-Такасур", "Аль-Хумаза", "Аль-Аср"],
+        letters: 4
+    },
+    img: stambul
+},
+{
+    mainword: "نعصكيم",
+    word1: "نعيم",
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Ат-Такасур", "Аль-Хумаза", "Аль-Аср"],
+        letters: 4
+    },
+    img: stambul
+},
+
 
 
 ]
