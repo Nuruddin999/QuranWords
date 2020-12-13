@@ -27,7 +27,7 @@ const Level = ({ ...props }) => {
             textAlign: "center",
             fontFamily: 'Tajawal',
             margin: props.state.margin,
-            padding: ".5em 1em",
+            padding: ".2em .5em",
             fontSize: "2em",
             transition: "margin 1s",
             background: "blueviolet",
@@ -70,7 +70,7 @@ const Level = ({ ...props }) => {
     display:table;
   padding:0.2em 1em;
     border-radius:4px;
-    margin:0 auto 100px;
+    margin:0 auto 50px;
     color:white;
 background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "grey"};
 `
@@ -234,7 +234,7 @@ background:${props => props.end.green ? "green" : props.end.wrong ? "red" : "gre
                 dates: data.dates,
                 toLevel: false,
                 prompt: props.levels[props.match.params.id - 1][3],
-                back: `url(${props.levels[props.match.params.id - 1][4]})`
+                back: `url(${props.levels[props.match.params.id - 1][4][window.innerWidth>700 ? "desc":"mob"]})`
             }))
         }
     }, [props.state.points])

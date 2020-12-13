@@ -8,6 +8,17 @@ import purple from "./img/purple.jpg"
 import zayed from "./img/zayed.jpg"
 import sunset from "./img/sunset.jpg"
 import stambul from "./img/stambul.jpg"
+import morocco from "./img/desc/morocco.jpg"
+import night from "./img/desc/night.jpg"
+import kairunDesc from "./img/desc/kairun.jpg"
+import house from "./img/desc/house.jpg"
+import houses from "./img/desc/houses.jpg"
+import mayak from "./img/desc/mayak.jpg"
+import gate from "./img/desc/gate.jpg"
+import coast from "./img/desc/coast.jpg"
+import rabat from "./img/desc/rabat.jpg"
+import desertDesc from "./img/desc/desert.jpg"
+import caret from "./img/desc/caret.jpg"
 export let levels = []
 let lvls = [{
     mainword: "ملكس",
@@ -18,7 +29,10 @@ let lvls = [{
         suras: ["Ан-Нас", "Аль-Фалак", "Аль-Ихлас"],
         letters: 3
     },
-    img: fes
+    img: {
+        mob:fes,
+        desc:night,
+    }
 },
 {
     mainword: "عيقد",
@@ -29,7 +43,10 @@ let lvls = [{
         suras: ["Аль-Масад", "Аль-Фалак", "Аль-Ихлас"],
         letters: 3
     },
-    img: tanger
+    img: {
+        mob:tanger,
+        desc:house,
+    }
 },
 {
     mainword: "احدص",
@@ -40,7 +57,10 @@ let lvls = [{
         suras: ["Ан-Наср", "Аль-Фалак", "Аль-Ихлас"],
         letters: 3
     },
-    img: kairun
+    img: {
+        mob:kairun,
+        desc:kairunDesc,
+    }
 },
 {
     mainword: "مسقد",
@@ -51,7 +71,10 @@ let lvls = [{
         suras: ["Ан-Наср", "Аль-Масад", "Аль-Фалак"],
         letters: 3
     },
-    img: alkar
+    img: {
+        mob:alkar,
+        desc:mayak,
+    }
 },
 {
     mainword: "نقرص",
@@ -62,7 +85,10 @@ let lvls = [{
         suras: ["Ан-Наср", "Аль-Ихлас", "Аль-Маун"],
         letters: 3
     },
-    img: madina
+    img: {
+        mob:madina,
+        desc:gate,
+    }
 },
 {
     mainword: "دليمن",
@@ -73,7 +99,10 @@ let lvls = [{
         suras: ["Аль-Кафирун", "Ан-Наср", "Аль-Филь"],
         letters: 3
     },
-    img: ornament
+    img: {
+        mob:ornament,
+        desc:coast,
+    }
 },
 {
     mainword: "بجيت",
@@ -84,7 +113,10 @@ let lvls = [{
         suras: ["Курейш ", "Аль-Филь", "Ан-Наср"],
         letters: 3
     },
-    img: purple
+    img: {
+        mob:purple,
+        desc:rabat,
+    }
 },
 {
     mainword: "سخوف",
@@ -95,7 +127,10 @@ let lvls = [{
         suras: ["Аль-Каусар", "Аль-Филь", "Курейш"],
         letters: 3
     },
-    img: zayed
+    img: {
+        mob:zayed,
+        desc:houses,
+    }
 },
 {
     mainword: "حطمة",
@@ -106,7 +141,10 @@ let lvls = [{
         suras: ["Аль-Маун", "Курейш", "Аль-Хумаза"],
         letters: 4
     },
-    img: sunset
+    img: {
+        mob:sunset,
+        desc:desertDesc,
+    }
 },
 {
     mainword: "جحيسم",
@@ -117,7 +155,10 @@ let lvls = [{
         suras: ["Ат-Такасур", "Аль-Хумаза", "Аль-Аср"],
         letters: 4
     },
-    img: stambul
+    img: {
+        mob:stambul,
+        desc:caret,
+    }
 },
 {
     mainword: "نعصكيم",
@@ -128,7 +169,10 @@ let lvls = [{
         suras: ["Ат-Такасур", "Аль-Хумаза", "Аль-Аср"],
         letters: 4
     },
-    img: stambul
+    img: {
+        mob:stambul,
+        desc:morocco,
+    }
 },
 
 

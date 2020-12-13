@@ -10,11 +10,12 @@ import ListIcon from '@material-ui/icons/List';
 
 const LevelFinish = ({ ...props }) => {
     const levelFinishStyles = makeStyles({
+     
         card: {
             margin: "200px 20px 0",
             background: "#8f2fff",
             color: "white",
-            borderRadius: "10px",
+            borderRadius: "10px",display:"table"
         },
         buttons: {
             width: "1em",

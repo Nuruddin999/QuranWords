@@ -7,7 +7,7 @@ export const commonStyles = makeStyles({
     level: {
         display: "table",
         margin: "0 auto 0",
-        padding: ".5em 1em"
+        padding: ".2em .5em"
     },
     sqwrapper: {
         margin: ".5em",
@@ -57,7 +57,7 @@ export const commonStyles = makeStyles({
         float: "right",
     },
     topIcons: {
-        padding: ".5em",
+        padding: ".2em",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between"
