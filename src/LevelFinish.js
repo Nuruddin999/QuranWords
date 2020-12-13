@@ -7,15 +7,19 @@ import Grid from "@material-ui/core/Grid";
 import Rating from '@material-ui/lab/Rating';
 import nextIcon from './img/nextIcon.svg';
 import ListIcon from '@material-ui/icons/List';
-
+import confetti from "./img/confetti.svg"
 const LevelFinish = ({ ...props }) => {
     const levelFinishStyles = makeStyles({
-     
+     wrapperFinish:{
+         position:"relative",
+         display:"table",
+         margin:"3em auto 0"
+     },
         card: {
-            margin: "200px 20px 0",
+            margin: "80px 20px 0",
             background: "#8f2fff",
             color: "white",
-            borderRadius: "10px",display:"table"
+            borderRadius: "10px",display:"table",
         },
         buttons: {
             width: "1em",
@@ -33,6 +37,11 @@ const LevelFinish = ({ ...props }) => {
         },
         title: {
             padding: ".5em"
+        },
+        confeti:{
+          display:"table",
+          margin:"0 auto 0",
+           padding:".2em" 
         }
     })
     let initState = {
@@ -63,7 +72,9 @@ const LevelFinish = ({ ...props }) => {
             ...initState
         }))
     }
-    return <Card className={levelFinishStyle.card}>
+    return <div className={levelFinishStyle.wrapperFinish}>
+            <Card className={levelFinishStyle.card}>
+            <div className={levelFinishStyle.confeti}><img src={confetti} width="100px" height="100px"/></div>
         <Typography align={"center"} className={levelFinishStyle.title}>Поздравляем !!!</Typography>
         <div className={levelFinishStyle.rating}> <Rating value={props.state.state.stars} readOnly max={3} /></div>
         <Grid container justify={"center"}>
@@ -73,5 +84,7 @@ const LevelFinish = ({ ...props }) => {
         </Grid>
 
     </Card>
+    </div> 
+
 }
 export default LevelFinish
