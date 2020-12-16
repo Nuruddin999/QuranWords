@@ -89,7 +89,19 @@
     bottom: 0px;
     right: calc(50% - 20px);
 }
+.l11 {
+    top: 130px;
+    left: 40px;
+}
 
+.l12 {
+    top: 130px;
+    right: 40px;
+}
+.l13 {
+    bottom: 00px;
+    left: calc(50% - 20px);
+}
 canvas {
     position: absolute;
     top: 0;

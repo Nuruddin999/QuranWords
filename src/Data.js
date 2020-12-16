@@ -19,6 +19,9 @@ import coast from "./img/desc/coast.jpg"
 import rabat from "./img/desc/rabat.jpg"
 import desertDesc from "./img/desc/desert.jpg"
 import caret from "./img/desc/caret.jpg"
+import galata from "./img/galata.jpg"
+import istanbul from "./img/desc/istanbul.jpg"
+import stan2 from "./img/stan2.jpg"
 export let levels = []
 let lvls = [{
     mainword: "ملكس",
@@ -163,17 +166,32 @@ let lvls = [{
 {
     mainword: "نعصكيم",
     word1: "نعيم",
-    coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Ат-Такасур", "Аль-Хумаза", "Аль-Аср"],
         letters: 4
     },
     img: {
-        mob:stambul,
+        mob:galata,
         desc:morocco,
     }
 },
+{
+    mainword: "مجبال",
+    word1: "جبال",
+     coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Курейш", "Аль-Кариа", "Аль-Аср"],
+        letters: 4
+    },
+    img: {
+        mob:stan2,
+        desc:istanbul,
+    }
+},
+
 
 
 

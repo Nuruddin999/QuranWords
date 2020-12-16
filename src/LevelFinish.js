@@ -9,7 +9,7 @@ import nextIcon from './img/nextIcon.svg';
 import ListIcon from '@material-ui/icons/List';
 import confetti from "./img/confetti.svg"
 const LevelFinish = ({ ...props }) => {
-    const levelFinishStyles = makeStyles({
+    const levelFinishStyles = makeStyles(theme=>({
      wrapperFinish:{
          position:"relative",
          display:"table",
@@ -42,8 +42,24 @@ const LevelFinish = ({ ...props }) => {
           display:"table",
           margin:"0 auto 0",
            padding:".2em" 
+        },
+        stars:{
+            fontSize:"1.5em",
+            display:"inline-block",
+    animation:`$starsanim 2s ${theme.transitions.easing.easeInOut}`
+        },
+        "@keyframes starsanim":{
+            "0%" :{
+                transform:"scale(1)"
+            },
+            "50%": {
+                transform:"scale(1.5)"
+            },
+            "100%": {
+                transform:"scale(1)"
+            }
         }
-    })
+    }))
     let initState = {
         stars: 0,
         letters: [],
@@ -72,11 +88,18 @@ const LevelFinish = ({ ...props }) => {
             ...initState
         }))
     }
+    const displayStars=()=>{
+        let starsList=[]
+        for (let index = 0; index < props.state.state.stars; index++) {
+            starsList.push("⭐")     
+        }
+        return starsList
+    }
     return <div className={levelFinishStyle.wrapperFinish}>
             <Card className={levelFinishStyle.card}>
             <div className={levelFinishStyle.confeti}><img src={confetti} width="100px" height="100px"/></div>
         <Typography align={"center"} className={levelFinishStyle.title}>Поздравляем !!!</Typography>
-        <div className={levelFinishStyle.rating}> <Rating value={props.state.state.stars} readOnly max={3} /></div>
+        <div className={levelFinishStyle.rating}>{displayStars().map(star=><span className={levelFinishStyle.stars}>{star}</span>)}</div>
         <Grid container justify={"center"}>
             <ListIcon className={levelFinishStyle.buttons} onClick={toLevels} />
             <div onClick={toNextLevel} className={levelFinishStyle.buttons}> <img src={nextIcon} /></div>
