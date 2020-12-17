@@ -22,6 +22,10 @@ import caret from "./img/desc/caret.jpg"
 import galata from "./img/galata.jpg"
 import istanbul from "./img/desc/istanbul.jpg"
 import stan2 from "./img/stan2.jpg"
+import bluemos from "./img/bluemos.jpg"
+import island from "./img/desc/island.jpg"
+import kapadokia from "./img/desc/kapadokia.jpg"
+import kapadokiamob from "./img/kapadokia.jpg"
 export let levels = []
 let lvls = [{
     mainword: "ملكس",
@@ -191,6 +195,64 @@ let lvls = [{
         desc:istanbul,
     }
 },
+{
+    mainword: "شهريد",
+    word1: "شهيد",
+     coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Аль-Кариа ", "Аз-Залзала", "Аль-Адийат"],
+        letters: 4
+    },
+    img: {
+        mob:stan2,
+        desc:istanbul,
+    }
+},
+{
+    mainword: "مزكاة",
+    word1: "زكاة",
+     coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Аль-Баййина"],
+        letters: 4
+    },
+    img: {
+        mob:bluemos,
+        desc:island,
+    }
+},
+{
+    mainword: "مطلقع",
+    word1: "مطلع",
+     coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Аль-Кадр","Аз-Залзала","Аль-Кариа"],
+        letters: 4
+    },
+    img: {
+        mob:bluemos,
+        desc:island,
+    }
+},
+
+{
+    mainword: "تقوضي",
+    word1: "تقوي",
+     coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Аль-Кадр","Аль-Алак"],
+        letters: 4
+    },
+    img: {
+        mob:kapadokiamob,
+        desc:kapadokia,
+    }
+},
+
 
 
 
