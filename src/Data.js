@@ -26,6 +26,10 @@ import bluemos from "./img/bluemos.jpg"
 import island from "./img/desc/island.jpg"
 import kapadokia from "./img/desc/kapadokia.jpg"
 import kapadokiamob from "./img/kapadokia.jpg"
+import cairo from "./img/cairo.jpg"
+import cairodesc from "./img/desc/cairo.jpg"
+import alazhardesc from "./img/desc/alazhar.jpg"
+import alazhar from "./img/alazhar.jpg"
 export let levels = []
 let lvls = [{
     mainword: "ملكس",
@@ -252,6 +256,63 @@ let lvls = [{
         desc:kapadokia,
     }
 },
+{
+    mainword: "تقويم",
+    word1: "تقويم",
+     coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Ат-Тин","Аль-Алак"],
+        letters: 5
+    },
+    img: {
+        mob:kapadokiamob,
+        desc:kapadokia,
+    }
+},
+{
+    mainword: "اطشعام",
+    word1: "اطعام",
+    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Аль-Балад","Аш-Шамс"],
+        letters: 5
+    },
+    img: {
+        mob:cairo,
+        desc:cairodesc,
+    }
+},
+{
+    mainword: "فرثعون",
+    word1: "فرعون",
+    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Аль-Фаджр"],
+        letters: 5
+    },
+    img: {
+        mob:cairo,
+        desc:cairodesc,
+    }
+},
+{
+    mainword: "لاغيوة",
+    word1: "لاغية",
+    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Аль-Гашийа","Аль-Кадр"],
+        letters: 5
+    },
+    img: {
+        mob:alazhar,
+        desc:alazhardesc,
+    }
+},
+
 
 
 
