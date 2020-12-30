@@ -30,6 +30,10 @@ import cairo from "./img/cairo.jpg"
 import cairodesc from "./img/desc/cairo.jpg"
 import alazhardesc from "./img/desc/alazhar.jpg"
 import alazhar from "./img/alazhar.jpg"
+import alexandria from "./img/desc/alexandria.jpg"
+import alexandriamob from "./img/alexandriamob.jpg"
+import lighthouse from "./img/desc/lighthouse.jpg"
+import desert2 from "./img/desert2.jpg"
 export let levels = []
 let lvls = [{
     mainword: "ملكس",
@@ -312,12 +316,75 @@ let lvls = [{
         desc:alazhardesc,
     }
 },
-
-
-
-
-
-
+{
+    mainword: "ترالئب",
+    word1: "ترائب",
+    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Аш-Шамс","Ат-Тарик"],
+        letters: 5
+    },
+    img: {
+        mob:alazhar,
+        desc:alazhardesc,
+    }
+},
+{
+    mainword: "مضشهود",
+    word1: "مشهود",
+    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Аш-Шамс","Ат-Тарик"],
+        letters: 5
+    },
+    img: {
+        mob:alexandriamob,
+        desc:alexandria,
+    }
+},{
+    mainword: "تسنيمل",
+    word1: "تسنيم",
+    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Аль-Мутаффифин"],
+        letters: 5
+    },
+    img: {
+        mob:alexandriamob,
+        desc:alexandria,
+    }
+},
+,{
+    mainword: "كواكسب",
+    word1: "كواكب",
+    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Аль-Фаджр","Аль-Инфитар"],
+        letters: 5
+    },
+    img: {
+        mob:desert2,
+        desc:lighthouse,
+    }
+},
+,{
+    mainword: "مجىنون",
+    word1: "مجنون",
+    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    prompt: {
+        text: "Данное слово встречается в одной из следующих сур:",
+        suras: ["Ат-Таквир"],
+        letters: 5
+    },
+    img: {
+        mob:desert2,
+        desc:lighthouse,
+    }
+},
 ]
 
 lvls.forEach((l, index) => {
