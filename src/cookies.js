@@ -26,7 +26,7 @@ export function checkCookie() {
     if (data !== "") {
         return data
     } else {
-        let data = { finished: 0, stars: [],dates:10 }
+        let data = { finished: 0, stars: [],dates:40 }
         setCookie("data", JSON.stringify(data));
     }
 }

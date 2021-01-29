@@ -36,9 +36,9 @@ import lighthouse from "./img/desc/lighthouse.jpg"
 import desert2 from "./img/desert2.jpg"
 export let levels = []
 let lvls = [{
-    mainword: "ملكس",
+    mainword: "ملك",
     word1: "ملك",
-    coordinats: ["l8", "l9", "l6", "l7"],
+    coordinats: ["l1", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Ан-Нас", "Аль-Фалак", "Аль-Ихлас"],
@@ -50,9 +50,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "عيقد",
+    mainword: "عقد",
     word1: "عقد",
-    coordinats: ["l8", "l9", "l6", "l7"],
+    coordinats: ["l1", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Аль-Масад", "Аль-Фалак", "Аль-Ихлас"],
@@ -64,9 +64,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "احدص",
+    mainword: "احد",
     word1: "احد",
-    coordinats: ["l8", "l9", "l6", "l7"],
+    coordinats: ["l1", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Ан-Наср", "Аль-Фалак", "Аль-Ихлас"],
@@ -78,9 +78,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "مسقد",
+    mainword: "مسد",
     word1: "مسد",
-    coordinats: ["l8", "l9", "l6", "l7"],
+    coordinats: ["l1", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Ан-Наср", "Аль-Масад", "Аль-Фалак"],
@@ -92,9 +92,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "نقرص",
+    mainword: "نرص",
     word1: "نصر",
-    coordinats: ["l8", "l9", "l6", "l7"],
+    coordinats: ["l1", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Ан-Наср", "Аль-Ихлас", "Аль-Маун"],
@@ -106,9 +106,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "دليمن",
+    mainword: "دين",
     word1: "دين",
-    coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    coordinats: ["l1", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Аль-Кафирун", "Ан-Наср", "Аль-Филь"],
@@ -120,9 +120,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "بجيت",
+    mainword: "بيت",
     word1: "بيت",
-    coordinats: ["l8", "l9", "l6", "l7"],
+    coordinats: ["l1", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Курейш ", "Аль-Филь", "Ан-Наср"],
@@ -134,9 +134,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "سخوف",
+    mainword: "خوف",
     word1: "خوف",
-    coordinats: ["l8", "l9", "l6", "l7"],
+    coordinats: ["l1", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Аль-Каусар", "Аль-Филь", "Курейш"],
@@ -162,9 +162,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "جحيسم",
+    mainword: "جحيم",
     word1: "جحيم",
-    coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    coordinats: ["l8", "l9", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Ат-Такасур", "Аль-Хумаза", "Аль-Аср"],
@@ -176,9 +176,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "نعصكيم",
+    mainword: "نعيم",
     word1: "نعيم",
-    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    coordinats: ["l8", "l9", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Ат-Такасур", "Аль-Хумаза", "Аль-Аср"],
@@ -190,9 +190,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "مجبال",
+    mainword: "جبال",
     word1: "جبال",
-     coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    coordinats: ["l8", "l9", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Курейш", "Аль-Кариа", "Аль-Аср"],
@@ -204,9 +204,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "شهريد",
+    mainword: "شهيد",
     word1: "شهيد",
-     coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    coordinats: ["l8", "l9", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Аль-Кариа ", "Аз-Залзала", "Аль-Адийат"],
@@ -218,9 +218,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "مزكاة",
+    mainword: "زكاة",
     word1: "زكاة",
-     coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    coordinats: ["l8", "l9", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Аль-Баййина"],
@@ -232,9 +232,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "مطلقع",
+    mainword: "مطلع",
     word1: "مطلع",
-     coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    coordinats: ["l8", "l9", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Аль-Кадр","Аз-Залзала","Аль-Кариа"],
@@ -247,12 +247,12 @@ let lvls = [{
 },
 
 {
-    mainword: "تقوضي",
+    mainword: "تقوي",
     word1: "تقوي",
-     coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    coordinats: ["l8", "l9", "l6", "l7"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
-        suras: ["Аль-Кадр","Аль-Алак"],
+        suras: ["Аль-Алак"],
         letters: 4
     },
     img: {
@@ -275,12 +275,12 @@ let lvls = [{
     }
 },
 {
-    mainword: "اطشعام",
+    mainword: "اطعام",
     word1: "اطعام",
-    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
-        suras: ["Аль-Балад","Аш-Шамс"],
+        suras: ["Аль-Балад"],
         letters: 5
     },
     img: {
@@ -289,9 +289,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "فرثعون",
+    mainword: "فرعون",
     word1: "فرعون",
-    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Аль-Фаджр"],
@@ -303,12 +303,12 @@ let lvls = [{
     }
 },
 {
-    mainword: "لاغيوة",
+    mainword: "لاغية",
     word1: "لاغية",
-    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
-        suras: ["Аль-Гашийа","Аль-Кадр"],
+        suras: ["Аль-Гашийа"],
         letters: 5
     },
     img: {
@@ -317,9 +317,9 @@ let lvls = [{
     }
 },
 {
-    mainword: "ترالئب",
+    mainword: "ترائب",
     word1: "ترائب",
-    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Аш-Шамс","Ат-Тарик"],
@@ -331,12 +331,12 @@ let lvls = [{
     }
 },
 {
-    mainword: "مضشهود",
+    mainword: "مشهود",
     word1: "مشهود",
-    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
-        suras: ["Аш-Шамс","Ат-Тарик"],
+        suras: ["Аль-Бурудж"],
         letters: 5
     },
     img: {
@@ -344,9 +344,9 @@ let lvls = [{
         desc:alexandria,
     }
 },{
-    mainword: "تسنيمل",
+    mainword: "تسنيم",
     word1: "تسنيم",
-    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Аль-Мутаффифин"],
@@ -358,9 +358,9 @@ let lvls = [{
     }
 },
 ,{
-    mainword: "كواكسب",
+    mainword: "كواكب",
     word1: "كواكب",
-    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Аль-Фаджр","Аль-Инфитар"],
@@ -372,9 +372,9 @@ let lvls = [{
     }
 },
 ,{
-    mainword: "مجىنون",
+    mainword: "مجنون",
     word1: "مجنون",
-    coordinats: ["l1","l2", "l3", "l11", "l12","l13"],
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
     prompt: {
         text: "Данное слово встречается в одной из следующих сур:",
         suras: ["Ат-Таквир"],

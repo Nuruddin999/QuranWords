@@ -15,6 +15,7 @@ import Guide from './Guide';
 export default function App() {
   const styles = commonStyles()
   const [state, setState] = useState({
+    word:[],
     currentLevel: 1,
     data: {},
     toLevels: false,
@@ -33,7 +34,9 @@ export default function App() {
     isWrong: false,
     wrongAttempts: 0,
     isFinished: false,
+    isGameFinished:false,
     isPrompt: false,
+    isOpened:false,
     notYourLevel: false,
     classes: [],
     back: "",
