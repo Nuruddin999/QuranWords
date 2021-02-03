@@ -13,6 +13,7 @@ import { getCookie, setCookie } from "../store/cookies";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import { LevelRepo } from "./LevelRepo";
+import Confeti from "./Confeti";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 
@@ -41,8 +42,11 @@ const Level = ({ ...props }) => {
   const [isPrompt, setPrompt] = useState(false);
   let letters = props.levels[props.match.params.id - 1][0];
   let rightWord = props.levels[props.match.params.id - 1][1][0];
-  let nextLevel = Number(props.match.params.id)>props.levels.length ? Number(props.match.params.id)-1 : Number(props.match.params.id) + 1;
-  let word = repo.shuffle(letters[0].split(""))
+  let nextLevel =
+    Number(props.match.params.id) > props.levels.length
+      ? Number(props.match.params.id) - 1
+      : Number(props.match.params.id) + 1;
+  let word = repo.shuffle(letters[0].split(""));
   let points = [];
   let ctx;
   const refCanvas = useRef(null);
@@ -173,7 +177,6 @@ const Level = ({ ...props }) => {
       ...state,
       currnetWord: prevWord.join(""),
       linePoints: [],
-
     }));
     setState((state) => ({ ...state, mouseDown: false }));
   };
@@ -226,13 +229,12 @@ const Level = ({ ...props }) => {
   const useDates = () => {
     repo.useDates(props.state, props.setState);
   };
-useEffect(()=>{
-    
-if(props.state.word.length===0){
-    props.setState((state) => ({ ...state, word}));
-}
-return ()=> props.setState((state) => ({ ...state, word:[]}));
-},[props.match.params.id])
+  useEffect(() => {
+    if (props.state.word.length === 0) {
+      props.setState((state) => ({ ...state, word }));
+    }
+    return () => props.setState((state) => ({ ...state, word: [] }));
+  }, [props.match.params.id]);
   useEffect(() => {
     if (props.state.refList.length === 0) {
       props.setState((state) => ({ ...state, refList }));
@@ -274,13 +276,13 @@ return ()=> props.setState((state) => ({ ...state, word:[]}));
 
   useEffect(() => {
     if (props.state.isWord1Resolved) {
-      if(props.match.params.id==props.levels.length){
-        console.log("game finished")
+      if (props.match.params.id == props.levels.length) {
+        console.log("game finished");
         props.setState((state) => ({
           ...state,
           isGameFinished: true,
-        }))
-        return
+        }));
+        return;
       }
       giveNextLevel();
       setTimeout(
@@ -307,7 +309,7 @@ return ()=> props.setState((state) => ({ ...state, word:[]}));
         500
       );
     }
-    return ()=>props.setState((state) => ({...state,isOpened:false }))
+    return () => props.setState((state) => ({ ...state, isOpened: false }));
   }, [props.state.isWord1Resolved, props.state.isWrong]);
   useEffect(() => {
     if (props.state.isPromptUsed) {
@@ -317,17 +319,25 @@ return ()=> props.setState((state) => ({ ...state, word:[]}));
         dates: state.dates <= 0 ? 0 : state.dates - 10,
       }));
     }
-
   }, [props.state.isPromptUsed]);
 
   return props.state.notYourLevel ? (
     <div className={styles.notYourLevel}>
       <span>Это не ваш уровень )))</span>
     </div>
-  ) :props.state.isGameFinished? <div>game finished</div>:Number(props.match.params.id)>props.levels.length?<div>game completed</div>: (
+  ) : props.state.isGameFinished ? (
+    <div className="confeti-wrapper">
+      <Confeti />
+    </div>
+  ) : Number(props.match.params.id) > props.levels.length ? (
+    <div>game completed</div>
+  ) : (
     <div>
       {props.state.isFinished ? (
-        <LevelFinish state={{ state: props.state, setState: props.setState }} levels/>
+        <LevelFinish
+          state={{ state: props.state, setState: props.setState }}
+          levels
+        />
       ) : (
         <React.Fragment>
           <div className={styles.topIcons}>
@@ -401,7 +411,7 @@ return ()=> props.setState((state) => ({ ...state, word:[]}));
             </div>
           </div>
           {props.state.toLevels ? <Redirect to="/levels" /> : null}
-          {props.state.toLevel  ? <Redirect to={`/level/${nextLevel}`} /> : null}
+          {props.state.toLevel ? <Redirect to={`/level/${nextLevel}`} /> : null}
           <Snackbar open={props.state.noDatesWindow}>
             <Alert severity="error">This is a success message!</Alert>
           </Snackbar>

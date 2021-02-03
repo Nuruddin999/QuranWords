@@ -109,3 +109,9 @@ canvas {
     z-index: 3;
     background: transparent;
 }
+.confeti-wrapper {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: #21c7d6;
+}
