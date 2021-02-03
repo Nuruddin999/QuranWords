@@ -1,4 +1,4 @@
-import { getCookie, setCookie } from "./cookies";
+import { getCookie, setCookie } from "../store/cookies";
 
 export function LevelRepo() {
   this.shuffle = (array) => {

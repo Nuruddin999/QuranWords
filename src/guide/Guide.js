@@ -1,12 +1,12 @@
 import React from "react";
-import gLetters from "./img/gLetters.png"
-import gCombine from "./img/gCombine.png"
-import gPrompt from "./img/gPrompt.png"
+import gLetters from "../img/gLetters.png"
+import gCombine from "../img/gCombine.png"
+import gPrompt from "../img/gPrompt.png"
 import { makeStyles } from "@material-ui/core";
-import { commonStyles } from "./Styles";
-import helpIcon from "./help.svg"
-import checkIcon from "./img/check.svg"
-import datesIcon from "./dates.png"
+import { commonStyles } from "../styles/Styles";
+import helpIcon from "../img/help.svg"
+import checkIcon from "../img/check.svg"
+import datesIcon from "../img/dates.png"
 const Guide = () => {
     const usestyles = makeStyles({
         guide: {

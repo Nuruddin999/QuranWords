@@ -5,9 +5,9 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Rating from '@material-ui/lab/Rating';
-import nextIcon from './img/nextIcon.svg';
+import nextIcon from '../img/nextIcon.svg';
 import ListIcon from '@material-ui/icons/List';
-import confetti from "./img/confetti.svg"
+import confetti from "../img/confetti.svg"
 const LevelFinish = ({ ...props }) => {
     const levelFinishStyles = makeStyles(theme=>({
      wrapperFinish:{

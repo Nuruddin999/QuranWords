@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from "@material-ui/core/Button";
-import { checkCookie, getCookie } from "./cookies";
-import { commonStyles } from "./Styles";
-import datesIcon from "./dates.png"
+import { checkCookie, getCookie } from "../store/cookies";
+import { commonStyles } from "../styles/Styles";
+import datesIcon from "../img/dates.png"
 import { makeStyles } from '@material-ui/core';
 const Levels = ({ ...props }) => {
     let finished = Number(props.state.data.finished)

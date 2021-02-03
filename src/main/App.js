@@ -1,16 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { checkCookie, getCookie } from './cookies';
+import '../styles/App.css';
+import { checkCookie, getCookie } from '../store/cookies';
 import { Redirect, Route } from 'react-router-dom';
-import Levels from './Levels';
+import Levels from '../levels/Levels';
 import Main from './Main';
-import Level from './Level';
-import { levels } from './Data';
-import Prompt from "./Prompt";
-import { commonStyles } from "./Styles";
+import Level from '../level/Level';
+import { levels } from '../store/Data';
+import Prompt from "../level/Prompt";
+import { commonStyles } from "../styles/Styles";
 import { makeStyles } from "@material-ui/core/styles";
-import Guide from './Guide';
+import Guide from '../guide/Guide';
 
 export default function App() {
   const styles = commonStyles()
