@@ -114,4 +114,8 @@ canvas {
     width: 100vw;
     height: 100vh;
     background: #21c7d6;
+    color:wheat
+}
+.confeti-wrapper h5 {
+    text-align: center;
 }

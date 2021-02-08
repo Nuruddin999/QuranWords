@@ -11,7 +11,8 @@ import { commonStyles } from "../styles/Styles";
 import { makeStyles } from "@material-ui/core/styles";
 import Guide from "../guide/Guide";
 
-export default function App() {
+ function App() {
+  console.log("App renders")
   const styles = commonStyles();
   const [state, setState] = useState({
     word: [],
@@ -97,3 +98,4 @@ export default function App() {
     </div>
   );
 }
+export default App

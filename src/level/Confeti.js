@@ -5,8 +5,9 @@ import Confetti from "react-confetti";
 const Confeti = () => {
   const { width, height } = useWindowSize();
   return<div>
-  sdfsdfd
-      <Confetti width={width} height={height} />;
+  <h5>Поздравляем !!!</h5>
+  <h5>Вы прошли игру !!!</h5>
+      <Confetti width={width} height={height} />
   </div> 
 };
 export default Confeti;

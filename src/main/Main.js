@@ -4,6 +4,7 @@ const Main = ({ ...props }) => {
     const onClick = () => {
         props.state.setState(state => ({ ...state, toLevels: true }))
     }
+    console.log("Main renders")
     return (
         <div className="App">
             <h2 id="complete"><span id="title">Арабские слова</span></h2>
