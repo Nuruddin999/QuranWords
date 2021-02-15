@@ -73,11 +73,11 @@ const Level = ({ ...props }) => {
 
   const Preview = styled.div`
     display: table;
-    boxsizing: border-box;
-    heigth: 5vh;
+    box-sizing: border-box;
+    height: 5vh;
     padding: 0.2em 1em;
     border-radius: 4px;
-    margin: 0 auto 50px;
+    margin: 0 auto 0px;
     color: white;
     background: ${(props) =>
       props.end.green ? "green" : props.end.wrong ? "red" : "grey"};
@@ -369,7 +369,8 @@ const Level = ({ ...props }) => {
               </div>
             </div>
           </div>
-          {!props.state.started ? (
+          <div className="prev-wrap">
+       {!props.state.started ? (
             <Preview
               end={{
                 green: props.state.isWord1Resolved,
@@ -377,9 +378,11 @@ const Level = ({ ...props }) => {
               }}
               id="preview"
             >
-              {props.state.previewLetter.join("")}
+              <span>{props.state.previewLetter.join("")}</span>
             </Preview>
           ) : null}
+          </div>
+   
           {!props.state.isWord1Resolved ? (
             <div className="lContainer">
               {props.state.word.map((letter, index) => (
