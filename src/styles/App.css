@@ -1,121 +1,148 @@
+.App {
+    height: 100vh;
+    overflow: hidden;
+    background-image: url("../img/main.jpg");
+    background-size: cover;
+    color: #fff;
+}
+.App h2 {
+  text-align: center;
+}
+.App a {
+  display: table;
+  margin: 0 auto 0;
+}
+.App button {
+  width: 25%;
+  position: absolute;
+  left: 37%;
+  top: 60%;
+  background: #21c7d6;
+  color: #fff;
+  border-radius: .2em;
+  border: initial;
+  padding: .5em;
+  font-size: 1em;
+  cursor: pointer;
+}
 .wl,
 .wld {
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    display: inline-block;
-    border-radius: 4px;
-    color: transparent;
-    transition: transform 0.8s ease-in, opacity 0.8s ease-out;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  border-radius: 4px;
+  color: transparent;
+  transition: transform 0.8s ease-in, opacity 0.8s ease-out;
 }
 
 .lContainer {
-    /* position: absolute;
+  /* position: absolute;
     z-index: -1;
     top: 45%;
     left: 10px; */
-    display: block;
-    position: absolute;
-    /* transition: transform 0.5s linear;
+  display: block;
+  position: absolute;
+  /* transition: transform 0.5s linear;
     transform: scale(0) rotate(0); */
-    top: 30%;
-    left: 10px;
-    height: 250px;
-    width: calc(100% - 20px);
+  top: 20%;
+  left: 10px;
+  height: 250px;
+  width: calc(100% - 20px);
 }
 
 .l {
-    height: 50px;
-    width: 12%;
-    background: #21c7d6;
-    position: absolute;
-    font-size: 35px;
-    text-align: center;
-    font-weight: 800;
-    color: #fff;
-    padding: 0;
-    border-radius: 3px;
-    box-shadow: 0px 3px 2px 0px #000;
-    transition: transform 0.1s linear;
-    text-transform: uppercase;
+  height: 50px;
+  width: 12%;
+  background: #21c7d6;
+  position: absolute;
+  font-size: 35px;
+  text-align: center;
+  font-weight: 800;
+  color: #fff;
+  padding: 0;
+  border-radius: 3px;
+  box-shadow: 0px 3px 2px 0px #000;
+  transition: transform 0.1s linear;
+  text-transform: uppercase;
 }
 
 .l1 {
-    top: 20px;
-    left: calc(50% - 20px);
+  top: 20px;
+  left: calc(50% - 20px);
 }
 
 .l2 {
-    top: 50px;
-    left: 40px;
+  top: 50px;
+  left: 40px;
 }
 
 .l3 {
-    top: 50px;
-    right: 40px;
+  top: 50px;
+  right: 40px;
 }
 
 .l4 {
-    top: 130px;
-    left: 0;
+  top: 130px;
+  left: 0;
 }
 
 .l5 {
-    top: 130px;
-    right: 0;
+  top: 130px;
+  right: 0;
 }
 
 .l6 {
-    bottom: 0;
-    left: 80px;
+  bottom: 0;
+  left: 80px;
 }
 
 .l7 {
-    bottom: 0;
-    right: 80px;
+  bottom: 0;
+  right: 80px;
 }
 
 .l8 {
-    top: 20px;
-    right: 80px;
+  top: 20px;
+  right: 80px;
 }
 
 .l9 {
-    top: 20px;
-    left: 80px;
+  top: 20px;
+  left: 80px;
 }
 
 .l10 {
-    bottom: 0px;
-    right: calc(50% - 20px);
+  bottom: 0px;
+  right: calc(50% - 20px);
 }
 .l11 {
-    top: 130px;
-    left: 40px;
+  top: 130px;
+  left: 40px;
 }
 
 .l12 {
-    top: 130px;
-    right: 40px;
+  top: 130px;
+  right: 40px;
 }
 .l13 {
-    bottom: 00px;
-    left: calc(50% - 20px);
+  bottom: 00px;
+  left: calc(50% - 20px);
 }
 canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 3;
-    background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background: transparent;
 }
 .confeti-wrapper {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background: #21c7d6;
-    color:wheat
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: #21c7d6;
+  color: wheat;
 }
 .confeti-wrapper h5 {
-    text-align: center;
+  text-align: center;
 }

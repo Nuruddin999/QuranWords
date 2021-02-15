@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import "../styles/App.css"
 const Main = ({ ...props }) => {
     const onClick = () => {
         props.state.setState(state => ({ ...state, toLevels: true }))
