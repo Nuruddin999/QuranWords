@@ -18,7 +18,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 
 const Level = ({ ...props }) => {
-  console.log("Level renders")
+  console.log("Level renders");
   const styles = commonStyles();
   const [state, setState] = useState({
     margin: "0",
@@ -73,6 +73,8 @@ const Level = ({ ...props }) => {
 
   const Preview = styled.div`
     display: table;
+    boxsizing: border-box;
+    heigth: 5vh;
     padding: 0.2em 1em;
     border-radius: 4px;
     margin: 0 auto 50px;
@@ -322,7 +324,7 @@ const Level = ({ ...props }) => {
     }
   }, [props.state.isPromptUsed]);
 
-   return props.state.notYourLevel ? (
+  return props.state.notYourLevel ? (
     <div className={styles.notYourLevel}>
       <span>Это не ваш уровень )))</span>
     </div>
@@ -422,4 +424,3 @@ const Level = ({ ...props }) => {
   );
 };
 export default withRouter(Level);
-
