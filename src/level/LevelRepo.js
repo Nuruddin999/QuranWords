@@ -1,28 +1,24 @@
 import { getCookie, setCookie } from "../store/cookies";
+import { gameState } from "../store/mobxstore";
 
 export function LevelRepo() {
   this.shuffle = (array) => {
-    for (let index = array.length-1;  index>0; index--) {
-      const j=Math.floor(Math.random()*(index+1))
-      const temp=array[index]
-      array[index]=array[j]
-      array[j]=temp
+    for (let index = array.length - 1; index > 0; index--) {
+      const j = Math.floor(Math.random() * (index + 1));
+      const temp = array[index];
+      array[index] = array[j];
+      array[j] = temp;
     }
     // }
-  
+
     return array;
   };
-  this.showLineAndPrevLetter = (state, word, index) => {
-    let linepoints = state.state.linePoints;
+  this.showLineAndPrevLetter = (state, index) => {
+    let linepoints = state.linePoints;
     linepoints.push(index);
-    let list = state.state.previewLetter;
-    list.push(word[index]);
-    state.setState((state) => ({
-      ...state,
-      started: false,
-      linePoints: linepoints,
-      previewLetter: list,
-    }));
+    let list = state.previewLetter;
+    list.push(state.word[index]);
+    state.showline(linepoints, list);
   };
   this.isInDiv = (coordinats, state, index, letterWidth) => {
     let clientXInLetter =
@@ -52,7 +48,7 @@ export function LevelRepo() {
     if (words.word === words.rightWord) {
       state.setState((state) => ({
         ...state,
-        word:[],
+        word: [],
         stars: this.giveStars(true, state),
         isWord1Resolved: true,
         margin: "2em",
@@ -72,7 +68,7 @@ export function LevelRepo() {
   };
   this.clearLine = (words, id, state) => {
     let data = JSON.parse(getCookie("data"));
-    if (state.state.linePoints[0] >= 0) {
+    if (state.linePoints[0] >= 0) {
       this.compareWords(words, state, id, data);
     }
   };
@@ -125,24 +121,10 @@ export function LevelRepo() {
   };
   this.useDates = (state, setState) => {
     if (state.dates < 20) {
-      setState((state) => ({
-        ...state,
-        noDatesWindow: true,
-      }));
-      setTimeout(
-        () =>
-          setState((state) => ({
-            ...state,
-            noDatesWindow: false,
-          })),
-        1000
-      );
+      state.calcDates(true);
+      setTimeout(() => state.calcDates(false), 1000);
     } else {
-      setState((state) => ({
-        ...state,
-        isPrompt: false,
-        isPromptUsed: true,
-      }));
+      state.setPrompt();
     }
   };
 }

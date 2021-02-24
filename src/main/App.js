@@ -1,18 +1,17 @@
 import React, { useEffect, useRef, useState, Suspense, lazy } from "react";
 import "../styles/App.css";
-import { checkCookie, getCookie } from "../store/cookies";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Levels from "../levels/Levels";
-import Main from "./Main";
 import Level from "../level/Level";
 import { levels } from "../store/Data";
 import Prompt from "../level/Prompt";
 import { commonStyles } from "../styles/Styles";
 import { makeStyles } from "@material-ui/core/styles";
 import Guide from "../guide/Guide";
-
- function App() {
-  console.log("App renders")
+import { observer } from "mobx-react";
+import { gameState } from "../store/mobxstore";
+const App = observer(() => {
+  console.log("App renders");
   const styles = commonStyles();
   const [state, setState] = useState({
     word: [],
@@ -57,17 +56,17 @@ import Guide from "../guide/Guide";
     },
   });
   useEffect(() => {
-    refCont.current.style.backgroundImage = state.back;
-  }, [state.back]);
+    refCont.current.style.backgroundImage = gameState.back;
+  }, [gameState.back]);
   useEffect(() => {
-    setState((state) => ({ ...state, isPrompt: true }));
+    gameState.setValue("isPrompt",true)
   }, []);
   const containerStyle = container();
   return (
     <div ref={refCont} className={containerStyle.mainContainer}>
-      {!state.isPrompt ? (
+      {!gameState.isPrompt ? (
         <div className={styles.prompt}>
-          <Prompt state={{ state, setState }} />
+          <Prompt />
         </div>
       ) : null}
       <Suspense fallback={<div>Loading...</div>}>
@@ -90,12 +89,12 @@ import Guide from "../guide/Guide";
           <Route
             path="/level/:id"
             render={(prop) => (
-              <Level state={state} setState={setState} levels={levels} />
+              <Level levels={levels} />
             )}
           />
         </Switch>
       </Suspense>
     </div>
   );
-}
-export default App
+});
+export default App;

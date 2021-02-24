@@ -14,10 +14,12 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import { LevelRepo } from "./LevelRepo";
 import Confeti from "./Confeti";
+import { gameState } from "../store/mobxstore";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
+import { observer } from "mobx-react";
 
-const Level = ({ ...props }) => {
+const Level = observer(({ ...props }) => {
   console.log("Level renders");
   const styles = commonStyles();
   const [state, setState] = useState({
@@ -29,7 +31,7 @@ const Level = ({ ...props }) => {
       display: "block",
       textAlign: "center",
       fontFamily: "Tajawal",
-      margin: props.state.margin,
+      margin: gameState.margin,
       padding: ".2em .5em",
       fontSize: "2em",
       transition: "margin 1s",
@@ -40,7 +42,6 @@ const Level = ({ ...props }) => {
   });
   const prevwordStyle = prevWordStyle();
   let repo = new LevelRepo();
-  const [isPrompt, setPrompt] = useState(false);
   let letters = props.levels[props.match.params.id - 1][0];
   let rightWord = props.levels[props.match.params.id - 1][1][0];
   let nextLevel =
@@ -82,90 +83,64 @@ const Level = ({ ...props }) => {
     background: ${(props) =>
       props.end.green ? "green" : props.end.wrong ? "red" : "grey"};
   `;
-  const showLineAndPrevLetter = (state, word, index) => {
-    repo.showLineAndPrevLetter(state, word, index);
-  };
-  const isInDiv = (coordinats, state, index) => {
-    return repo.isInDiv(coordinats, state, index, letterWidth);
+  const isInDiv = (coordinats, index) => {
+    return gameState.isInDiv(coordinats, index, letterWidth);
   };
   const onTouchStart = (e) => {
-    if (props.state.started) {
+    if (gameState.started) {
       let clientX = e.changedTouches[0].clientX;
       let clientY = e.changedTouches[0].clientY;
-      for (let index = 0; index < props.state.points.length; index++) {
-        if (isInDiv({ x: clientX, y: clientY }, props.state, index)) {
-          showLineAndPrevLetter(
-            { state: props.state, setState: props.setState },
-            props.state.word,
-            index
-          );
+      for (let index = 0; index < gameState.points.length; index++) {
+        if (isInDiv({ x: clientX, y: clientY }, index)) {
+          gameState.showLineAndPrevLetter(index);
         }
       }
     }
   };
   const onTouchMove = (e) => {
-    if (!props.started) {
+    if (!gameState.started) {
       let clientX = e.changedTouches[0].clientX;
       let clientY = e.changedTouches[0].clientY;
-      for (let index = 0; index < props.state.points.length; index++) {
-        if (isInDiv({ x: clientX, y: clientY }, props.state, index)) {
-          if (props.state.linePoints.indexOf(index) === -1) {
-            showLineAndPrevLetter(
-              { state: props.state, setState: props.setState },
-              props.state.word,
-              index
-            );
+      for (let index = 0; index < gameState.points.length; index++) {
+        if (isInDiv({ x: clientX, y: clientY }, index)) {
+          if (gameState.linePoints.indexOf(index) === -1) {
+            gameState.showLineAndPrevLetter(index);
           }
         }
       }
       drawLine(clientX, clientY);
     }
   };
-  const clearLine = (word) => {
-    repo.clearLine({ word, rightWord }, Number(props.match.params.id), {
-      state: props.state,
-      setState: props.setState,
-    });
-  };
+  const clearLine = (word) =>
+    gameState.clearLine({ word, rightWord }, Number(props.match.params.id));
+
   const onTouchEnd = (e, mouse) => {
-    let prevWord = props.state.previewLetter;
+    let prevWord = gameState.previewLetter;
     clearLine(prevWord.join(""));
-    props.setState((state) => ({
-      ...state,
-      currnetWord: prevWord.join(""),
-      linePoints: [],
-    }));
+    gameState.resetWord();
     setState((state) => ({ mouseDown: false }));
   };
   const mouseDown = (e) => {
     setState((state) => ({ ...state, mouseDown: true }));
-    if (props.state.started) {
+    if (gameState.started) {
       let clientX = e.clientX;
       let clientY = e.clientY;
-      for (let index = 0; index < props.state.points.length; index++) {
-        if (isInDiv({ x: clientX, y: clientY }, props.state, index)) {
-          showLineAndPrevLetter(
-            { state: props.state, setState: props.setState },
-            props.state.word,
-            index
-          );
+      for (let index = 0; index < gameState.points.length; index++) {
+        if (isInDiv({ x: clientX, y: clientY }, index)) {
+          gameState.showLineAndPrevLetter(index);
         }
       }
     }
   };
   const mouseMove = (e) => {
     if (state.mouseDown) {
-      if (!props.started) {
+      if (!gameState.started) {
         let clientX = e.clientX;
         let clientY = e.clientY;
-        for (let index = 0; index < props.state.points.length; index++) {
-          if (isInDiv({ x: clientX, y: clientY }, props.state, index)) {
-            if (props.state.linePoints.indexOf(index) === -1) {
-              showLineAndPrevLetter(
-                { state: props.state, setState: props.setState },
-                props.state.word,
-                index
-              );
+        for (let index = 0; index < gameState.points.length; index++) {
+          if (isInDiv({ x: clientX, y: clientY }, index)) {
+            if (gameState.linePoints.indexOf(index) === -1) {
+              gameState.showLineAndPrevLetter(index);
             }
           }
         }
@@ -174,161 +149,117 @@ const Level = ({ ...props }) => {
     }
   };
   const mouseUp = (e) => {
-    let prevWord = props.state.previewLetter;
+    let prevWord = gameState.previewLetter;
     clearLine(prevWord.join(""));
-    props.setState((state) => ({
-      ...state,
-      currnetWord: prevWord.join(""),
-      linePoints: [],
-    }));
+    gameState.resetWord();
     setState((state) => ({ ...state, mouseDown: false }));
   };
   function drawLine(x, y) {
-    if (props.state.linePoints[0] >= 0) {
+    if (gameState.linePoints[0] >= 0) {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       ctx.beginPath();
       ctx.moveTo(
-        props.state.points[props.state.linePoints[0]].x + letterWidth / 2,
-        props.state.points[props.state.linePoints[0]].y + 50 / 2
+        gameState.points[gameState.linePoints[0]].x + letterWidth / 2,
+        gameState.points[gameState.linePoints[0]].y + 50 / 2
       );
-      for (let n = 1; n < props.state.linePoints.length; n++) {
+      for (let n = 1; n < gameState.linePoints.length; n++) {
         ctx.lineTo(
-          props.state.points[props.state.linePoints[n]].x + letterWidth / 2,
-          props.state.points[props.state.linePoints[n]].y + 50 / 2
+          gameState.points[gameState.linePoints[n]].x + letterWidth / 2,
+          gameState.points[gameState.linePoints[n]].y + 50 / 2
         );
       }
       ctx.lineTo(x, y);
       ctx.stroke();
-      //letterTrans(lt[linePoints[linePoints.length-1]]);
     }
   }
 
   const giveNextLevel = () =>
-    repo.giveNextLevel(props.state, Number(props.match.params.id));
-  const backToLevels = () =>
-    props.setState((state) => ({ ...state, toLevels: true }));
+    gameState.giveNextLevel(Number(props.match.params.id));
+  const backToLevels = () => gameState.backToLevel();
   const openWord = () => {
     let data = JSON.parse(getCookie("data"));
     if (data.dates < 20) {
-      props.setState((state) => ({ ...state, noDatesWindow: true }));
-      setTimeout(
-        () => props.setState((state) => ({ ...state, noDatesWindow: false })),
-        1000
-      );
+      gameState.openWord(true);
+      setTimeout(() => gameState.openWord(true), 1000);
     } else {
-      props.setState((state) => ({ ...state, isOpened: true }));
+      gameState.open();
       setCookie("data", JSON.stringify({ ...data, dates: data.dates - 20 }));
-      repo.compareWords(
+      gameState.compareWords(
         { word: rightWord, rightWord },
-        {
-          state: props.state,
-          setState: props.setState,
-        },
         Number(props.match.params.id),
         data
       );
     }
   };
-  const useDates = () => {
-    repo.useDates(props.state, props.setState);
-  };
+  const useDates = () => gameState.useDates();
   useEffect(() => {
-    if (props.state.word.length === 0) {
-      props.setState((state) => ({ ...state, word }));
+    if (gameState.word.length === 0) {
+      gameState.setValue("word", word);
     }
-    return () => props.setState((state) => ({ ...state, word: [] }));
+    return () => gameState.setValue("word", []);
   }, [props.match.params.id]);
   useEffect(() => {
-    if (props.state.refList.length === 0) {
-      props.setState((state) => ({ ...state, refList }));
+    if (gameState.refList.length === 0) {
+      gameState.setValue("refList", refList);
     }
-  }, [props.state.refList]);
+  }, [gameState.refList]);
 
   useEffect(() => {
     if (
       Number(props.match.params.id) >
       JSON.parse(getCookie("data")).finished + 1
     ) {
-      props.setState((state) => ({ ...state, notYourLevel: true }));
-    } else if (props.state.points.length === 0) {
+      gameState.setValue("notYourLevel", true);
+    } else if (gameState.points.length === 0) {
       let data = JSON.parse(getCookie("data"));
-      for (let index = 0; index < props.state.refList.length; index++) {
-        if (props.state.refList[index].current) {
+      for (let index = 0; index < gameState.refList.length; index++) {
+        if (gameState.refList[index].current) {
           let coordinats = {
-            x: props.state.refList[index].current.getBoundingClientRect().x,
-            y: props.state.refList[index].current.getBoundingClientRect().y,
+            x: gameState.refList[index].current.getBoundingClientRect().x,
+            y: gameState.refList[index].current.getBoundingClientRect().y,
           };
           points.push(coordinats);
         }
       }
-      props.setState((state) => ({
-        ...state,
+      gameState.runGame(
         points,
-        isPrompt: true,
-        dates: data.dates,
-        toLevel: false,
-        prompt: props.levels[props.match.params.id - 1][3],
-        back: `url(${
+        data.dates,
+        props.levels[props.match.params.id - 1][3],
+        `url(${
           props.levels[props.match.params.id - 1][4][
             window.innerWidth > 700 ? "desc" : "mob"
           ]
-        })`,
-      }));
+        })`
+      );
     }
-  }, [props.state.points]);
+  }, [gameState.points]);
 
   useEffect(() => {
-    if (props.state.isWord1Resolved) {
+    if (gameState.isWord1Resolved) {
       if (props.match.params.id == props.levels.length) {
         console.log("game finished");
-        props.setState((state) => ({
-          ...state,
-          isGameFinished: true,
-        }));
+        gameState.setValue("isGameFinished", true);
         return;
       }
       giveNextLevel();
-      setTimeout(
-        () =>
-          props.setState((state) => ({
-            ...state,
-            isFinished: true,
-            previewLetter: [],
-            started: true,
-            toLevels: false,
-          })),
-        2000
-      );
-    } else if (props.state.isWrong) {
-      setTimeout(
-        () =>
-          props.setState((state) => ({
-            ...state,
-            isWrong: false,
-            previewLetter: [],
-            started: true,
-            toLevels: false,
-          })),
-        500
-      );
+      setTimeout(() => gameState.finishGame(), 2000);
+    } else if (gameState.isWrong) {
+      setTimeout(() => gameState.finishWithWrong(), 500);
     }
-    return () => props.setState((state) => ({ ...state, isOpened: false }));
-  }, [props.state.isWord1Resolved, props.state.isWrong]);
+    return () => gameState.setValue("isOpened", false);
+  }, [gameState.isWord1Resolved, gameState.isWrong]);
   useEffect(() => {
-    if (props.state.isPromptUsed) {
-      repo.spendDates();
-      props.setState((state) => ({
-        ...state,
-        dates: state.dates <= 0 ? 0 : state.dates - 10,
-      }));
+    if (gameState.isPromptUsed) {
+      gameState.spendDates();
+      gameState.calcDates();
     }
-  }, [props.state.isPromptUsed]);
+  }, [gameState.isPromptUsed]);
 
-  return props.state.notYourLevel ? (
+  return gameState.notYourLevel ? (
     <div className={styles.notYourLevel}>
       <span>Это не ваш уровень )))</span>
     </div>
-  ) : props.state.isGameFinished ? (
+  ) : gameState.isGameFinished ? (
     <div className="confeti-wrapper">
       <Confeti />
     </div>
@@ -336,7 +267,7 @@ const Level = ({ ...props }) => {
     <div>game completed</div>
   ) : (
     <div>
-      {props.state.isFinished ? (
+      {gameState.isFinished ? (
         <LevelFinish
           state={{ state: props.state, setState: props.setState }}
           levels
@@ -351,7 +282,7 @@ const Level = ({ ...props }) => {
               <div className={styles.datesImg}>
                 <img src={datesIcon} />
               </div>
-              <span>{props.state.dates}</span>
+              <span>{gameState.dates}</span>
             </div>
           </div>
           <div id="wContainer">
@@ -361,7 +292,7 @@ const Level = ({ ...props }) => {
                 <span id="levelNum">{props.match.params.id}</span>
               </Card>
               <div className={styles.sqwrapper}>
-                {props.state.isWord1Resolved ? (
+                {gameState.isWord1Resolved ? (
                   <Card className={prevwordStyle.prevWord}>
                     <span>{rightWord}</span>
                   </Card>
@@ -370,27 +301,27 @@ const Level = ({ ...props }) => {
             </div>
           </div>
           <div className="prev-wrap">
-       {!props.state.started ? (
-            <Preview
-              end={{
-                green: props.state.isWord1Resolved,
-                wrong: props.state.isWrong,
-              }}
-              id="preview"
-            >
-              <span>{props.state.previewLetter.join("")}</span>
-            </Preview>
-          ) : null}
+            {!gameState.started ? (
+              <Preview
+                end={{
+                  green: gameState.isWord1Resolved,
+                  wrong: gameState.isWrong,
+                }}
+                id="preview"
+              >
+                <span>{gameState.previewLetter.join("")}</span>
+              </Preview>
+            ) : null}
           </div>
-   
-          {!props.state.isWord1Resolved ? (
+
+          {!gameState.isWord1Resolved ? (
             <div className="lContainer">
-              {props.state.word.map((letter, index) => (
+              {gameState.word.map((letter, index) => (
                 <div
                   className={`l ${
                     props.levels[props.match.params.id - 1][2][index]
                   }`}
-                  ref={props.state.refList[index]}
+                  ref={gameState.refList[index]}
                 >
                   {letter}
                 </div>
@@ -416,14 +347,14 @@ const Level = ({ ...props }) => {
               <img src={helpIcon} onClick={useDates} />
             </div>
           </div>
-          {props.state.toLevels ? <Redirect to="/levels" /> : null}
-          {props.state.toLevel ? <Redirect to={`/level/${nextLevel}`} /> : null}
-          <Snackbar open={props.state.noDatesWindow}>
+          {gameState.toLevels ? <Redirect to="/levels" /> : null}
+          {gameState.toLevel ? <Redirect to={`/level/${nextLevel}`} /> : null}
+          <Snackbar open={gameState.noDatesWindow}>
             <Alert severity="error">This is a success message!</Alert>
           </Snackbar>
         </React.Fragment>
       )}
     </div>
   );
-};
+});
 export default withRouter(Level);
