@@ -63,51 +63,53 @@ const App = observer((props) => {
       backgroundSize: "cover",
       backgroundPosition: "center",
       overflow: "auto",
-      backgroundImage: gameState.back,
+      // backgroundImage: gameState.back,
     },
   });
   // useEffect(() => {
   //   refCont.current.style.backgroundImage = gamseState.back;
   // }, [gamseState.back]);
-  const reportLoad = () => gameState.setValue("backLoaded", true);
+  const reportLoad = () => {
+    gameState.setValue("backLoaded", true);
+  };
   useEffect(() => {
     gameState.setValue("isPrompt", true);
   }, []);
   const containerStyle = container();
   return (
-    <div
-      ref={refCont}
-      className={containerStyle.mainContainer}
-      onLoad={reportLoad}
-    >
-      {!gameState.isPrompt ? (
-        <div className={styles.prompt}>
-          <Prompt />
-        </div>
-      ) : null}
-      <Suspense fallback={<div>Loading...</div>}>
-        <Switch>
-          <Route
-            path="/"
-            exact
-            render={(prop) => <MainComp state={{ state, setState }} />}
-          />
-          <Route
-            path="/guide"
-            render={(prop) => <GuideComp state={{ state, setState }} />}
-          />
-          <Route
-            path="/levels"
-            render={(prop) => (
-              <Levels levels={levels} state={state} setState={setState} />
-            )}
-          />
-          <Route
-            path="/level/:id"
-            render={(prop) => <Level levels={levels} />}
-          />
-        </Switch>
-      </Suspense>
+    <div className="mainBox">
+      {gameState.backLoaded ? null : <div className="backPreLoader"></div>}
+      <img src={gameState.back} onLoad={reportLoad} />
+      <div ref={refCont} className={containerStyle.mainContainer}>
+        {!gameState.isPrompt ? (
+          <div className={styles.prompt}>
+            <Prompt />
+          </div>
+        ) : null}
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={(prop) => <MainComp state={{ state, setState }} />}
+            />
+            <Route
+              path="/guide"
+              render={(prop) => <GuideComp state={{ state, setState }} />}
+            />
+            <Route
+              path="/levels"
+              render={(prop) => (
+                <Levels levels={levels} state={state} setState={setState} />
+              )}
+            />
+            <Route
+              path="/level/:id"
+              render={(prop) => <Level levels={levels} />}
+            />
+          </Switch>
+        </Suspense>
+      </div>
     </div>
   );
 });

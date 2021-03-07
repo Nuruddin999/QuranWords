@@ -224,11 +224,9 @@ const Level = observer(({ ...props }) => {
         points,
         data.dates,
         props.levels[props.match.params.id - 1][3],
-        `url(${
-          props.levels[props.match.params.id - 1][4][
-            window.innerWidth > 700 ? "desc" : "mob"
-          ]
-        })`
+        props.levels[props.match.params.id - 1][4][
+          window.innerWidth > 700 ? "desc" : "mob"
+        ]
       );
     }
   }, [gameState.points]);

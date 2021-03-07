@@ -1,20 +1,28 @@
 .App {
   height: 100vh;
   overflow: hidden;
-  background-image: url("../img/main.jpg");
   background-size: cover;
   color: #fff;
 }
 .mainBox {
   height: 100%;
 }
+.mainBox > img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
 .backPreLoader {
   position: fixed;
   left: 0;
+  top: 25%;
   width: 100%;
   z-index: 10;
-  height: 100%;
-  background: #21c7d6;
+  height: 50%;
+  background: purple;
 }
 .App h2 {
   text-align: center;
