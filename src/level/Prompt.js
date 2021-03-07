@@ -4,8 +4,8 @@ import { commonStyles } from "../styles/Styles";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core";
 import { observer } from "mobx-react";
-import { gameState } from '../store/mobxstore';
-
+import { GameState } from '../store/mobxstore';
+const gameState=new GameState()
 const Prompt = observer((props) => {
     console.log(gameState.prompt.suras)
     const styles = commonStyles()

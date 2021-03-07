@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import "../styles/App.css";
 import LevelFinish from "./LevelFinish";
@@ -14,13 +14,12 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import { LevelRepo } from "./LevelRepo";
 import Confeti from "./Confeti";
-import { gameState } from "../store/mobxstore";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { observer } from "mobx-react";
-
+import { StoreContext } from "..";
 const Level = observer(({ ...props }) => {
-  console.log("Level renders");
+  const gameState = useContext(StoreContext);
   const styles = commonStyles();
   const [state, setState] = useState({
     margin: "0",
@@ -180,7 +179,7 @@ const Level = observer(({ ...props }) => {
     let data = JSON.parse(getCookie("data"));
     if (data.dates < 20) {
       gameState.openWord(true);
-      setTimeout(() => gameState.openWord(true), 1000);
+      setTimeout(() => gameState.openWord(false), 1000);
     } else {
       gameState.open();
       setCookie("data", JSON.stringify({ ...data, dates: data.dates - 20 }));

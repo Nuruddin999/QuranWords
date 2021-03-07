@@ -1,15 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './styles/index.css';
-import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
-import App from './main/App';
-
+import React, { createContext } from "react";
+import ReactDOM from "react-dom";
+import "./styles/index.css";
+import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter } from "react-router-dom";
+import App from "./main/App";
+import { GameState } from "./store/mobxstore";
+import { Provider } from "mobx-react";
+export const StoreContext = createContext();
+const StoreProvider = ({ children }) => {
+  const gamestate = new GameState();
+  return (
+    <StoreContext.Provider value={gamestate}>{children}</StoreContext.Provider>
+  );
+};
 ReactDOM.render(
   <BrowserRouter>
+  <StoreProvider >
     <App />
+    </StoreProvider>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

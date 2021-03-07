@@ -1,4 +1,11 @@
-import React, { useEffect, useRef, useState, Suspense, lazy } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  Suspense,
+  lazy,
+  useContext,
+} from "react";
 import "../styles/App.css";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Levels from "../levels/Levels";
@@ -9,8 +16,11 @@ import { commonStyles } from "../styles/Styles";
 import { makeStyles } from "@material-ui/core/styles";
 import Guide from "../guide/Guide";
 import { observer } from "mobx-react";
-import { gameState } from "../store/mobxstore";
-const App = observer(() => {
+import { GameState } from "../store/mobxstore";
+import { createContext } from "react";
+import { StoreContext } from "..";
+const App = observer((props) => {
+  const gameState = useContext(StoreContext);
   console.log("App renders");
   const styles = commonStyles();
   const [state, setState] = useState({
@@ -53,17 +63,23 @@ const App = observer(() => {
       backgroundSize: "cover",
       backgroundPosition: "center",
       overflow: "auto",
+      backgroundImage: gameState.back,
     },
   });
+  // useEffect(() => {
+  //   refCont.current.style.backgroundImage = gamseState.back;
+  // }, [gamseState.back]);
+  const reportLoad = () => gameState.setValue("backLoaded", true);
   useEffect(() => {
-    refCont.current.style.backgroundImage = gameState.back;
-  }, [gameState.back]);
-  useEffect(() => {
-    gameState.setValue("isPrompt",true)
+    gameState.setValue("isPrompt", true);
   }, []);
   const containerStyle = container();
   return (
-    <div ref={refCont} className={containerStyle.mainContainer}>
+    <div
+      ref={refCont}
+      className={containerStyle.mainContainer}
+      onLoad={reportLoad}
+    >
       {!gameState.isPrompt ? (
         <div className={styles.prompt}>
           <Prompt />
@@ -88,9 +104,7 @@ const App = observer(() => {
           />
           <Route
             path="/level/:id"
-            render={(prop) => (
-              <Level levels={levels} />
-            )}
+            render={(prop) => <Level levels={levels} />}
           />
         </Switch>
       </Suspense>
