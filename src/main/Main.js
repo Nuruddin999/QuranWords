@@ -1,17 +1,18 @@
 import { observer } from "mobx-react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Redirect, Route } from "react-router-dom";
 import "../styles/App.css";
 import { StoreContext } from "..";
 import mainBack from "../img/main.jpg";
 const Main = observer(({ ...props }) => {
   const gameState = useContext(StoreContext);
-  useEffect(() => {
-    gameState.setValue("back", mainBack);
-  }, []);
+  const [state, setState] = useState(false);
+  const reportLoad = () => setState(true);
   console.log("Main renders");
   return (
     <div className="App">
+      {state ? null : <div className="backPreLoader"></div>}
+      <img src={mainBack} className={"backImg"} onLoad={reportLoad} />
       <h2 id="complete">
         <span id="title">Арабские слова</span>
       </h2>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
@@ -8,9 +8,11 @@ import datesIcon from "../img/dates.png";
 import { makeStyles } from "@material-ui/core";
 import { observer } from "mobx-react";
 import { GameState } from "../store/mobxstore";
+import desertImg from "../img/desert.png";
 const gamseState = new GameState();
 const Levels = observer(({ ...props }) => {
   let finished = Number(gamseState.data.finished);
+  const [state, setState] = useState(false);
   const styles = commonStyles();
   const LevelList = styled.div`
     max-height: 70vh;
@@ -43,6 +45,12 @@ const Levels = observer(({ ...props }) => {
 
   return (
     <div className={styles.levels}>
+      {state ? null : <div className="backPreLoader"></div>}
+      <img
+        src={desertImg}
+        className={"backImg"}
+        onLoad={() => setState(true)}
+      />
       <div className={styles.levelsDatesSec}>
         <img src={datesIcon} className={styles.levelsDates} />
         <span>{gamseState.data.dates}</span>

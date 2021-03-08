@@ -61,7 +61,7 @@ const Guide = observer(() => {
   const style = commonStyles();
   const styles = usestyles();
   useEffect(() => {
-    gameState.setValue("backLoaded", true);
+    // gameState.setValue("backLoaded", true);
     return () => gameState.setValue("backLoaded", false);
   }, []);
   return (

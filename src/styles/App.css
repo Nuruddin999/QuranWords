@@ -7,7 +7,7 @@
 .mainBox {
   height: 100%;
 }
-.mainBox > img {
+.backImg {
   position: fixed;
   top: 0;
   left: 0;

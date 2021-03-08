@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import "../styles/App.css";
 import LevelFinish from "./LevelFinish";
@@ -24,7 +30,11 @@ const Level = observer(({ ...props }) => {
   const [state, setState] = useState({
     margin: "0",
     mouseDown: false,
+    backLoaded: false,
+    newImage: false,
   });
+  console.log(state.backLoaded);
+  console.log("level renders");
   const prevWordStyle = makeStyles({
     prevWord: {
       display: "block",
@@ -171,6 +181,9 @@ const Level = observer(({ ...props }) => {
       ctx.stroke();
     }
   }
+  const handleLoad = () => {
+    setState((state) => ({ ...state, backLoaded: true }));
+  };
 
   const giveNextLevel = () =>
     gameState.giveNextLevel(Number(props.match.params.id));
@@ -195,7 +208,16 @@ const Level = observer(({ ...props }) => {
     if (gameState.word.length === 0) {
       gameState.setValue("word", word);
     }
-    return () => gameState.setValue("word", []);
+    gameState.setValue(
+      "back",
+      props.levels[props.match.params.id - 1][4][
+        window.innerWidth > 700 ? "desc" : "mob"
+      ]
+    );
+    return () => {
+      setState((state) => ({ ...state, backLoaded: false }));
+      gameState.setValue("word", []);
+    };
   }, [props.match.params.id]);
   useEffect(() => {
     if (gameState.refList.length === 0) {
@@ -223,10 +245,7 @@ const Level = observer(({ ...props }) => {
       gameState.runGame(
         points,
         data.dates,
-        props.levels[props.match.params.id - 1][3],
-        props.levels[props.match.params.id - 1][4][
-          window.innerWidth > 700 ? "desc" : "mob"
-        ]
+        props.levels[props.match.params.id - 1][3]
       );
     }
   }, [gameState.points]);
@@ -239,8 +258,10 @@ const Level = observer(({ ...props }) => {
         return;
       }
       giveNextLevel();
+      setState((state) => ({ ...state, backLoaded: true }));
       setTimeout(() => gameState.finishGame(), 2000);
     } else if (gameState.isWrong) {
+      setState((state) => ({ ...state, backLoaded: true }));
       setTimeout(() => gameState.finishWithWrong(), 500);
     }
     return () => gameState.setValue("isOpened", false);
@@ -250,8 +271,21 @@ const Level = observer(({ ...props }) => {
       gameState.spendDates();
       gameState.calcDates();
     }
+    return () => setState((state) => ({ ...state, backLoaded: false }));
   }, [gameState.isPromptUsed]);
-
+  useEffect(() => {
+    if (!state.newImage) {
+      setState((state) => ({ ...state, newImage: true }));
+    }
+    return () => setState((state) => ({ ...state, newImage: false }));
+  }, [gameState.back]);
+  const renderPreloader = () => {
+    if (!state.backLoaded) {
+      if (state.newImage) {
+        return <div className="backPreLoader"></div>;
+      }
+    }
+  };
   return gameState.notYourLevel ? (
     <div className={styles.notYourLevel}>
       <span>Это не ваш уровень )))</span>
@@ -264,6 +298,8 @@ const Level = observer(({ ...props }) => {
     <div>game completed</div>
   ) : (
     <div>
+      {renderPreloader()}
+      <img src={gameState.back} className={"backImg"} onLoad={handleLoad} />
       {gameState.isFinished ? (
         <LevelFinish
           state={{ state: props.state, setState: props.setState }}

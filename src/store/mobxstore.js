@@ -175,13 +175,12 @@ export class GameState {
   open() {
     this.isOpened = true;
   }
-  runGame(points, dates, level, img) {
+  runGame(points, dates, level) {
     this.points = points;
     this.isPrompt = true;
     this.dates = dates;
     this.toLevel = false;
     this.prompt = level;
-    this.back = img;
   }
   finishGame() {
     this.isFinished = true;

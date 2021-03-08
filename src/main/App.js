@@ -78,8 +78,6 @@ const App = observer((props) => {
   const containerStyle = container();
   return (
     <div className="mainBox">
-      {gameState.backLoaded ? null : <div className="backPreLoader"></div>}
-      <img src={gameState.back} onLoad={reportLoad} />
       <div ref={refCont} className={containerStyle.mainContainer}>
         {!gameState.isPrompt ? (
           <div className={styles.prompt}>
