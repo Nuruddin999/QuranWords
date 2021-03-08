@@ -45,7 +45,11 @@ const Levels = observer(({ ...props }) => {
 
   return (
     <div className={styles.levels}>
-      {state ? null : <div className="backPreLoader"></div>}
+      {state ? null : (
+        <div id="preloader">
+          <div id="loader"></div>
+        </div>
+      )}
       <img
         src={desertImg}
         className={"backImg"}

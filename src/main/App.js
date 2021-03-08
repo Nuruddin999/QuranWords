@@ -84,7 +84,7 @@ const App = observer((props) => {
             <Prompt />
           </div>
         ) : null}
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<h2>Загрузка...</h2>}>
           <Switch>
             <Route
               path="/"

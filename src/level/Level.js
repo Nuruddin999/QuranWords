@@ -24,6 +24,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { observer } from "mobx-react";
 import { StoreContext } from "..";
+import { Lines } from "react-preloaders";
 const Level = observer(({ ...props }) => {
   const gameState = useContext(StoreContext);
   const styles = commonStyles();
@@ -282,7 +283,11 @@ const Level = observer(({ ...props }) => {
   const renderPreloader = () => {
     if (!state.backLoaded) {
       if (state.newImage) {
-        return <div className="backPreLoader"></div>;
+        return (
+          <div id="preloader">
+            <div id="loader"></div>
+          </div>
+        );
       }
     }
   };

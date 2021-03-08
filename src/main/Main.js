@@ -11,7 +11,11 @@ const Main = observer(({ ...props }) => {
   console.log("Main renders");
   return (
     <div className="App">
-      {state ? null : <div className="backPreLoader"></div>}
+      {state ? null : (
+        <div id="preloader">
+          <div id="loader"></div>
+        </div>
+      )}
       <img src={mainBack} className={"backImg"} onLoad={reportLoad} />
       <h2 id="complete">
         <span id="title">Арабские слова</span>
