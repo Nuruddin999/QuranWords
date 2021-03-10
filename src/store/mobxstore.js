@@ -137,25 +137,43 @@ export class GameState {
       }
     }
   }
-  spendDates() {
-    let data = JSON.parse(getCookie("data"));
-    let dates = data.dates;
-    setCookie(
-      "data",
-      JSON.stringify({
-        ...data,
-        dates: dates <= 0 ? 0 : dates - 20,
-      })
-    );
+  spendOnPropmt() {
+    if (this.dates < 10) {
+      this.noDatesWindow = true;
+      setTimeout(() => (this.noDatesWindow = false), 1000);
+    } else {
+      let data = JSON.parse(getCookie("data"));
+      setCookie(
+        "data",
+        JSON.stringify({
+          ...data,
+          dates: this.dates <= 0 ? 0 : this.dates - 5,
+        })
+      );
+      this.isPrompt = false;
+      this.isPromptUsed = true;
+    }
   }
-  useDates() {
+  spendOnWord(words, id) {
     if (this.dates < 20) {
       this.noDatesWindow = true;
       setTimeout(() => (this.noDatesWindow = false), 1000);
     } else {
-      this.isPrompt = false;
-      this.isPromptUsed = true;
+      this.open();
+      let data = JSON.parse(getCookie("data"));
+      setCookie(
+        "data",
+        JSON.stringify({
+          ...data,
+          dates: this.dates <= 0 ? 0 : this.dates - 20,
+        })
+      );
+      this.compareWords(words, id, data);
     }
+  }
+  getDates() {
+    let data = JSON.parse(getCookie("data"));
+    this.dates = data.dates;
   }
   renderWrong() {
     this.stars = 0;
@@ -194,17 +212,6 @@ export class GameState {
     this.started = true;
     this.toLevels = false;
   }
-  spendDates() {
-    let data = JSON.parse(getCookie("data"));
-    let dates = data.dates;
-    setCookie(
-      "data",
-      JSON.stringify({
-        ...data,
-        dates: dates <= 0 ? 0 : dates - 20,
-      })
-    );
-  }
   goToLevel() {
     let data = JSON.parse(getCookie("data"));
     this.toLevels = false;
@@ -212,7 +219,10 @@ export class GameState {
     this.data = data;
   }
   calcDates() {
-    this.dates = this.dates <= 0 ? 0 : this.dates - 10;
+    if (this.isPrompt) {
+      this.dates = this.dates <= 0 ? 0 : this.dates - 5;
+    } else {
+    }
   }
   goToLevels() {
     this.toLevels = true;
@@ -248,5 +258,23 @@ export class GameState {
     this.wrongAttempts = 0;
     this.isFinished = false;
     this.classes = [];
+  }
+  drawLine(x, y, ctx, letterWidth) {
+    if (this.linePoints[0] >= 0) {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.beginPath();
+      ctx.moveTo(
+        this.points[this.linePoints[0]].x + letterWidth / 2,
+        this.points[this.linePoints[0]].y + 50 / 2
+      );
+      for (let n = 1; n < this.linePoints.length; n++) {
+        ctx.lineTo(
+          this.points[this.linePoints[n]].x + letterWidth / 2,
+          this.points[this.linePoints[n]].y + 50 / 2
+        );
+      }
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
   }
 }

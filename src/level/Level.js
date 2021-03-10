@@ -11,8 +11,6 @@ import LevelFinish from "./LevelFinish";
 import { commonStyles } from "../styles/Styles";
 import { Redirect, withRouter } from "react-router-dom";
 import helpIcon from "../img/help.svg";
-import datesIcon from "../img/dates.png";
-import backIcon from "../img/backicon.png";
 import checkIcon from "../img/check.svg";
 import Prompt from "./Prompt";
 import { getCookie, setCookie } from "../store/cookies";
@@ -25,6 +23,7 @@ import Card from "@material-ui/core/Card";
 import { observer } from "mobx-react";
 import { StoreContext } from "..";
 import { Lines } from "react-preloaders";
+import TopIcons from "./TopIcons";
 const Level = observer(({ ...props }) => {
   const gameState = useContext(StoreContext);
   const styles = commonStyles();
@@ -165,46 +164,20 @@ const Level = observer(({ ...props }) => {
     setState((state) => ({ ...state, mouseDown: false }));
   };
   function drawLine(x, y) {
-    if (gameState.linePoints[0] >= 0) {
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      ctx.beginPath();
-      ctx.moveTo(
-        gameState.points[gameState.linePoints[0]].x + letterWidth / 2,
-        gameState.points[gameState.linePoints[0]].y + 50 / 2
-      );
-      for (let n = 1; n < gameState.linePoints.length; n++) {
-        ctx.lineTo(
-          gameState.points[gameState.linePoints[n]].x + letterWidth / 2,
-          gameState.points[gameState.linePoints[n]].y + 50 / 2
-        );
-      }
-      ctx.lineTo(x, y);
-      ctx.stroke();
-    }
+    gameState.drawLine(x, y, ctx, letterWidth);
   }
-  const handleLoad = () => {
+  const handleLoad = () =>
     setState((state) => ({ ...state, backLoaded: true }));
-  };
 
   const giveNextLevel = () =>
     gameState.giveNextLevel(Number(props.match.params.id));
-  const backToLevels = () => gameState.backToLevel();
   const openWord = () => {
-    let data = JSON.parse(getCookie("data"));
-    if (data.dates < 20) {
-      gameState.openWord(true);
-      setTimeout(() => gameState.openWord(false), 1000);
-    } else {
-      gameState.open();
-      setCookie("data", JSON.stringify({ ...data, dates: data.dates - 20 }));
-      gameState.compareWords(
-        { word: rightWord, rightWord },
-        Number(props.match.params.id),
-        data
-      );
-    }
+    gameState.spendOnWord(
+      { word: rightWord, rightWord },
+      Number(props.match.params.id)
+    );
   };
-  const useDates = () => gameState.useDates();
+  const useDates = () => gameState.spendOnPropmt();
   useEffect(() => {
     if (gameState.word.length === 0) {
       gameState.setValue("word", word);
@@ -269,8 +242,7 @@ const Level = observer(({ ...props }) => {
   }, [gameState.isWord1Resolved, gameState.isWrong]);
   useEffect(() => {
     if (gameState.isPromptUsed) {
-      gameState.spendDates();
-      gameState.calcDates();
+      gameState.getDates();
     }
     return () => setState((state) => ({ ...state, backLoaded: false }));
   }, [gameState.isPromptUsed]);
@@ -312,17 +284,7 @@ const Level = observer(({ ...props }) => {
         />
       ) : (
         <React.Fragment>
-          <div className={styles.topIcons}>
-            <div className={styles.backIcon} onClick={backToLevels}>
-              <img src={backIcon} alt="" />
-            </div>
-            <div className={styles.datesSec}>
-              <div className={styles.datesImg}>
-                <img src={datesIcon} />
-              </div>
-              <span>{gameState.dates}</span>
-            </div>
-          </div>
+          <TopIcons />
           <div id="wContainer">
             <div className={styles.topBar}>
               <Card className={styles.level}>
