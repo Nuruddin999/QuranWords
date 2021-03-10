@@ -86,20 +86,11 @@ const App = observer((props) => {
         ) : null}
         <Suspense fallback={<h2>Загрузка...</h2>}>
           <Switch>
-            <Route
-              path="/"
-              exact
-              render={(prop) => <MainComp state={{ state, setState }} />}
-            />
-            <Route
-              path="/guide"
-              render={(prop) => <GuideComp state={{ state, setState }} />}
-            />
+            <Route path="/" exact render={(prop) => <MainComp />} />
+            <Route path="/guide" render={(prop) => <GuideComp />} />
             <Route
               path="/levels"
-              render={(prop) => (
-                <Levels levels={levels} state={state} setState={setState} />
-              )}
+              render={(prop) => <Levels levels={levels} />}
             />
             <Route
               path="/level/:id"

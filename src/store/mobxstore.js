@@ -148,9 +148,9 @@ export class GameState {
       })
     );
   }
-  useDates(isTrue) {
+  useDates() {
     if (this.dates < 20) {
-      this.noDatesWindow = isTrue;
+      this.noDatesWindow = true;
       setTimeout(() => (this.noDatesWindow = false), 1000);
     } else {
       this.isPrompt = false;

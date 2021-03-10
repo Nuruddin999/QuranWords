@@ -388,7 +388,7 @@ const Level = observer(({ ...props }) => {
           {gameState.toLevels ? <Redirect to="/levels" /> : null}
           {gameState.toLevel ? <Redirect to={`/level/${nextLevel}`} /> : null}
           <Snackbar open={gameState.noDatesWindow}>
-            <Alert severity="error">This is a success message!</Alert>
+            <Alert severity="error">Недостаточно фиников !</Alert>
           </Snackbar>
         </React.Fragment>
       )}

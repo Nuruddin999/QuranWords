@@ -33,14 +33,7 @@ const Levels = observer(({ ...props }) => {
   };
   useEffect(() => {
     checkCookie();
-    // let data = JSON.parse(getCookie("data"));
     gamseState.goToLevel();
-    // props.setState((state) => ({
-    //   ...state,
-    //   data,
-    //   toLevels: false,
-    //   isPrompt: true,
-    // }));
   }, []);
 
   return (
