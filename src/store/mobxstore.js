@@ -184,9 +184,6 @@ export class GameState {
     this.currnetWord = this.previewLetter.join("");
     this.linePoints = [];
   }
-  backToLevel() {
-    this.toLevels = true;
-  }
   openWord(isOpened) {
     this.noDatesWindow = isOpened;
   }

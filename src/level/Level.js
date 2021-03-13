@@ -22,8 +22,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { observer } from "mobx-react";
 import { StoreContext } from "..";
-import { Lines } from "react-preloaders";
 import TopIcons from "./TopIcons";
+import BackImage from "./BackImage";
 const Level = observer(({ ...props }) => {
   const gameState = useContext(StoreContext);
   const styles = commonStyles();
@@ -33,8 +33,7 @@ const Level = observer(({ ...props }) => {
     backLoaded: false,
     newImage: false,
   });
-  console.log(state.backLoaded);
-  console.log("level renders");
+
   const prevWordStyle = makeStyles({
     prevWord: {
       display: "block",
@@ -127,7 +126,7 @@ const Level = observer(({ ...props }) => {
     let prevWord = gameState.previewLetter;
     clearLine(prevWord.join(""));
     gameState.resetWord();
-    setState((state) => ({ mouseDown: false }));
+    setState((state) => ({ ...state, mouseDown: false }));
   };
   const mouseDown = (e) => {
     setState((state) => ({ ...state, mouseDown: true }));
@@ -166,8 +165,9 @@ const Level = observer(({ ...props }) => {
   function drawLine(x, y) {
     gameState.drawLine(x, y, ctx, letterWidth);
   }
-  const handleLoad = () =>
-    setState((state) => ({ ...state, backLoaded: true }));
+  // const handleLoad = () => {
+  //   setState((state) => ({ ...state, backLoaded: true }));
+  // };
 
   const giveNextLevel = () =>
     gameState.giveNextLevel(Number(props.match.params.id));
@@ -178,6 +178,17 @@ const Level = observer(({ ...props }) => {
     );
   };
   const useDates = () => gameState.spendOnPropmt();
+  // const renderPreloader = () => {
+  //   if (!state.backLoaded) {
+  //     if (state.newImage) {
+  //       return (
+  //         <div id="preloader">
+  //           <div id="loader"></div>
+  //         </div>
+  //       );
+  //     }
+  //   }
+  // };
   useEffect(() => {
     if (gameState.word.length === 0) {
       gameState.setValue("word", word);
@@ -246,23 +257,10 @@ const Level = observer(({ ...props }) => {
     }
     return () => setState((state) => ({ ...state, backLoaded: false }));
   }, [gameState.isPromptUsed]);
-  useEffect(() => {
-    if (!state.newImage) {
-      setState((state) => ({ ...state, newImage: true }));
-    }
-    return () => setState((state) => ({ ...state, newImage: false }));
-  }, [gameState.back]);
-  const renderPreloader = () => {
-    if (!state.backLoaded) {
-      if (state.newImage) {
-        return (
-          <div id="preloader">
-            <div id="loader"></div>
-          </div>
-        );
-      }
-    }
-  };
+  // useEffect(() => {
+  //   setState((state) => ({ ...state, newImage: true }));
+  //   return () => setState((state) => ({ ...state, newImage: false }));
+  // }, [gameState.back]);
   return gameState.notYourLevel ? (
     <div className={styles.notYourLevel}>
       <span>Это не ваш уровень )))</span>
@@ -275,8 +273,9 @@ const Level = observer(({ ...props }) => {
     <div>game completed</div>
   ) : (
     <div>
-      {renderPreloader()}
-      <img src={gameState.back} className={"backImg"} onLoad={handleLoad} />
+      {/* {renderPreloader()}
+      <img src={gameState.back} className={"backImg"} onLoad={handleLoad} /> */}
+      <BackImage back={gameState.back} />
       {gameState.isFinished ? (
         <LevelFinish
           state={{ state: props.state, setState: props.setState }}

@@ -7,7 +7,7 @@ import backIcon from "../img/backicon.png";
 const TopIcons = observer(() => {
   const gameState = useContext(StoreContext);
   const styles = commonStyles();
-  const backToLevels = () => gameState.backToLevel();
+  const backToLevels = () => gameState.goToLevels();
   return (
     <React.Fragment>
       <div className={styles.topIcons}>
@@ -21,7 +21,6 @@ const TopIcons = observer(() => {
           <span>{gameState.dates}</span>
         </div>
       </div>
-      ;
     </React.Fragment>
   );
 });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
@@ -9,8 +9,9 @@ import { makeStyles } from "@material-ui/core";
 import { observer } from "mobx-react";
 import { GameState } from "../store/mobxstore";
 import desertImg from "../img/desert.png";
-const gamseState = new GameState();
+import { StoreContext } from "..";
 const Levels = observer(({ ...props }) => {
+  const gamseState = useContext(StoreContext);
   let finished = Number(gamseState.data.finished);
   const [state, setState] = useState(false);
   const styles = commonStyles();
@@ -55,7 +56,8 @@ const Levels = observer(({ ...props }) => {
       <LevelList>
         {props.levels.map((level, index) => (
           <Button
-            href={`/level/${index + 1}`}
+            component={Link}
+            to={`/level/${index + 1}`}
             disabled={finished < index}
             className={styles.levelArk}
             style={{
