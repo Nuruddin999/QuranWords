@@ -21,7 +21,6 @@ import { createContext } from "react";
 import { StoreContext } from "..";
 const App = observer((props) => {
   const gameState = useContext(StoreContext);
-  console.log("App renders");
   const styles = commonStyles();
   const [state, setState] = useState({
     word: [],

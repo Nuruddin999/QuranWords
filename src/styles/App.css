@@ -4,14 +4,12 @@
   background-size: cover;
   color: #fff;
 }
-.mainBox {
-  height: 100%;
-}
+
 .backImg {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   z-index: -1;
 }
@@ -178,7 +176,7 @@ canvas {
   width: 100%;
   height: 100%;
   background: #370937;
-  z-index: 10
+  z-index: 10;
 }
 #loader {
   display: block;

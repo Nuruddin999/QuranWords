@@ -178,17 +178,6 @@ const Level = observer(({ ...props }) => {
     );
   };
   const useDates = () => gameState.spendOnPropmt();
-  // const renderPreloader = () => {
-  //   if (!state.backLoaded) {
-  //     if (state.newImage) {
-  //       return (
-  //         <div id="preloader">
-  //           <div id="loader"></div>
-  //         </div>
-  //       );
-  //     }
-  //   }
-  // };
   useEffect(() => {
     if (gameState.word.length === 0) {
       gameState.setValue("word", word);
@@ -275,7 +264,7 @@ const Level = observer(({ ...props }) => {
     <div>
       {/* {renderPreloader()}
       <img src={gameState.back} className={"backImg"} onLoad={handleLoad} /> */}
-      <BackImage back={gameState.back} />
+      <BackImage back={gameState.back}/>
       {gameState.isFinished ? (
         <LevelFinish
           state={{ state: props.state, setState: props.setState }}
@@ -317,6 +306,7 @@ const Level = observer(({ ...props }) => {
             <div className="lContainer">
               {gameState.word.map((letter, index) => (
                 <div
+                  key={letter}
                   className={`l ${
                     props.levels[props.match.params.id - 1][2][index]
                   }`}

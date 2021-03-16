@@ -3,20 +3,22 @@ import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "..";
 
 const BackImage = observer((props) => {
-  const [state, setState] = useState(true);
+  const [state, setState] = useState(false);
   const handleLoad = () => {
-    setState((state) => false);
-  };
-  useEffect(() => {
+    console.log("handle load");
     setState((state) => true);
+  };
+
+  useEffect(() => {
+    return () => setState((state) => false);
   }, [props.back]);
   return (
     <React.Fragment>
-      {state ? (
+      {state ? null : (
         <div id="preloader">
           <div id="loader"></div>
         </div>
-      ) : null}
+      )}
       <img src={props.back} className={"backImg"} onLoad={handleLoad} />
     </React.Fragment>
   );
