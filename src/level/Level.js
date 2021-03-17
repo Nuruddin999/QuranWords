@@ -264,7 +264,7 @@ const Level = observer(({ ...props }) => {
     <div>
       {/* {renderPreloader()}
       <img src={gameState.back} className={"backImg"} onLoad={handleLoad} /> */}
-      <BackImage back={gameState.back}/>
+      <BackImage back={gameState.back} id={props.match.params.id} />
       {gameState.isFinished ? (
         <LevelFinish
           state={{ state: props.state, setState: props.setState }}

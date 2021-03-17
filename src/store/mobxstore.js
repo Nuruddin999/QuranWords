@@ -236,7 +236,6 @@ export class GameState {
     this.isGreen = false;
     this.wrongAttempts = 0;
     this.isFinished = false;
-    this.classes = [];
   }
   toNextLevel() {
     this.toLevels = false;

@@ -19,6 +19,8 @@ import { observer } from "mobx-react";
 import { GameState } from "../store/mobxstore";
 import { createContext } from "react";
 import { StoreContext } from "..";
+import MainComp from "../main/Main";
+import GuideComp from "../guide/Guide";
 const App = observer((props) => {
   const gameState = useContext(StoreContext);
   const styles = commonStyles();
@@ -52,8 +54,6 @@ const App = observer((props) => {
     prompt: {},
   });
   const refCont = useRef(null);
-  const MainComp = lazy(() => import("../main/Main"));
-  const GuideComp = lazy(() => import("../guide/Guide"));
   const container = makeStyles({
     mainContainer: {
       zIndex: "-2",
@@ -83,7 +83,6 @@ const App = observer((props) => {
             <Prompt />
           </div>
         ) : null}
-        <Suspense fallback={<h2>Загрузка...</h2>}>
           <Switch>
             <Route path="/" exact render={(prop) => <MainComp />} />
             <Route path="/guide" render={(prop) => <GuideComp />} />
@@ -96,7 +95,6 @@ const App = observer((props) => {
               render={(prop) => <Level levels={levels} />}
             />
           </Switch>
-        </Suspense>
       </div>
     </div>
   );

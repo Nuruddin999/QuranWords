@@ -177,6 +177,7 @@ canvas {
   height: 100%;
   background: #370937;
   z-index: 10;
+  color: white;
 }
 #loader {
   display: block;
