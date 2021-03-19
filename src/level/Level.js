@@ -188,6 +188,7 @@ const Level = observer(({ ...props }) => {
         window.innerWidth > 700 ? "desc" : "mob"
       ]
     );
+    gameState.setValue("levelId", props.match.params.id);
     return () => {
       setState((state) => ({ ...state, backLoaded: false }));
       gameState.setValue("word", []);
@@ -246,10 +247,7 @@ const Level = observer(({ ...props }) => {
     }
     return () => setState((state) => ({ ...state, backLoaded: false }));
   }, [gameState.isPromptUsed]);
-  // useEffect(() => {
-  //   setState((state) => ({ ...state, newImage: true }));
-  //   return () => setState((state) => ({ ...state, newImage: false }));
-  // }, [gameState.back]);
+
   return gameState.notYourLevel ? (
     <div className={styles.notYourLevel}>
       <span>Это не ваш уровень )))</span>

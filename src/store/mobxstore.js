@@ -30,6 +30,8 @@ export class GameState {
   margin = "0";
   prompt = {};
   backLoaded = false;
+  loader = true;
+  levelId = 0;
   constructor() {
     makeAutoObservable(this);
   }
@@ -236,6 +238,8 @@ export class GameState {
     this.isGreen = false;
     this.wrongAttempts = 0;
     this.isFinished = false;
+    this.loader = true;
+    this.levelId = 0;
   }
   toNextLevel() {
     this.toLevels = false;
@@ -254,6 +258,7 @@ export class GameState {
     this.wrongAttempts = 0;
     this.isFinished = false;
     this.classes = [];
+    this.loader = true;
   }
   drawLine(x, y, ctx, letterWidth) {
     if (this.linePoints[0] >= 0) {

@@ -1,22 +1,27 @@
 import { observer } from "mobx-react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { StoreContext } from "..";
 
 const BackImage = observer((props) => {
-  const [state, setState] = useState({ loader: false });
-  console.log(state);
+  const gameState = useContext(StoreContext);
+  // const [state, setState] = useState({ loader: false });
+  console.log(gameState.levelId);
+  console.log(gameState.loader);
   const handleLoad = () => {
     console.log("image loaded");
-    setState((state) => ({ ...state, loader: true }));
+    gameState.setValue("loader", false);
+    // setState((state) => ({ ...state, loader: true }));
   };
   const handleError = () => {
     console.log("error");
   };
-  // useEffect(() => {
-  //   console.log("use effect");
-  //   setState((state) => ({ ...state, loader: true }));
-  //   return () => setState((state) => ({ ...state, loader: true }));
-  // }, []);
+
+  useEffect(() => {
+    if (Number(gameState.levelId) > 11 && Number(gameState.levelId) % 2 !== 0) {
+      console.log("old image");
+      gameState.setValue("loader", false);
+    }
+  }, [gameState.levelId]);
   // useEffect(() => {
   //   return () => {
   //     console.log("unmount");
@@ -25,13 +30,14 @@ const BackImage = observer((props) => {
   // }, [props.back]);
   return (
     <React.Fragment>
-      {state.loader ? null : (
+      {!gameState.loader ? null : (
         <div id="preloader">
-          <span>Загрузка</span>
+          <div id="loader"></div>
         </div>
       )}
+
       <img
-        src={props.back}
+        src={gameState.back}
         key={props.back}
         className={"backImg"}
         onLoad={handleLoad}
