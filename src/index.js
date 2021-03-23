@@ -2,7 +2,7 @@ import React, { createContext } from "react";
 import ReactDOM from "react-dom";
 import "./styles/index.css";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import App from "./main/App";
 import { GameState } from "./store/mobxstore";
 import { Provider } from "mobx-react";
@@ -14,9 +14,9 @@ const StoreProvider = ({ children }) => {
   );
 };
 ReactDOM.render(
-  <BrowserRouter>
-  <StoreProvider >
-    <App />
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <StoreProvider>
+      <App />
     </StoreProvider>
   </BrowserRouter>,
   document.getElementById("root")

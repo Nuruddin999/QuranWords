@@ -17,7 +17,6 @@ const LevelFinish = observer(({ ...props }) => {
       margin: "3em auto 0",
     },
     card: {
-      margin: "80px 20px 0",
       background: "#8f2fff",
       color: "white",
       borderRadius: "10px",

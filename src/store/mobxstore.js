@@ -31,7 +31,7 @@ export class GameState {
   prompt = {};
   backLoaded = false;
   loader = true;
-  levelId = 0;
+  //levelId = 0;
   constructor() {
     makeAutoObservable(this);
   }
@@ -86,7 +86,8 @@ export class GameState {
       this.word = [];
       this.stars = this.giveStars(true);
       this.isWord1Resolved = true;
-      this.margin = "2em";
+      this.margin = "0";
+      setTimeout(() => (this.margin = "2em"), 500);
       this.dates =
         id < data.finished + 1
           ? data.dates
@@ -239,7 +240,7 @@ export class GameState {
     this.wrongAttempts = 0;
     this.isFinished = false;
     this.loader = true;
-    this.levelId = 0;
+    this.back = "";
   }
   toNextLevel() {
     this.toLevels = false;
@@ -259,6 +260,7 @@ export class GameState {
     this.isFinished = false;
     this.classes = [];
     this.loader = true;
+    this.back = "";
   }
   drawLine(x, y, ctx, letterWidth) {
     if (this.linePoints[0] >= 0) {

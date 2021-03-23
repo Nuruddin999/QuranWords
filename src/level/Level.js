@@ -39,10 +39,10 @@ const Level = observer(({ ...props }) => {
       display: "block",
       textAlign: "center",
       fontFamily: "Tajawal",
-      margin: gameState.margin,
-      padding: ".2em .5em",
+      marginTop: gameState.margin,
+      padding: "1em",
       fontSize: "2em",
-      transition: "margin 1s",
+      transition: "all 1s ease-in-out;",
       background: "blueviolet",
       borderRadius: "20%",
       color: "white",
@@ -188,9 +188,9 @@ const Level = observer(({ ...props }) => {
         window.innerWidth > 700 ? "desc" : "mob"
       ]
     );
-    gameState.setValue("levelId", props.match.params.id);
+    // gameState.setValue("levelId", props.match.params.id);
     return () => {
-      setState((state) => ({ ...state, backLoaded: false }));
+      //  setState((state) => ({ ...state, backLoaded: false }));
       gameState.setValue("word", []);
     };
   }, [props.match.params.id]);

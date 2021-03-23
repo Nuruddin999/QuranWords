@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, Redirect, Route } from "react-router-dom";
 import "../styles/App.css";
 import { StoreContext } from "..";
-import mainBack from "../img/main.jpg";
+import mainBack from "../img/mainlast.jpg";
 const Main = observer(({ ...props }) => {
   const gameState = useContext(StoreContext);
   const [state, setState] = useState(false);
@@ -18,7 +18,7 @@ const Main = observer(({ ...props }) => {
       )}
       <img src={mainBack} className={"backImg"} onLoad={reportLoad} />
       <h2 id="complete">
-        <span id="title">Арабские слова</span>
+        <span id="title">Слова Корана</span>
       </h2>
       <Link to="/guide">
         <button>Играть</button>

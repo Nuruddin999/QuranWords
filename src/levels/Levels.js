@@ -8,7 +8,7 @@ import datesIcon from "../img/dates.png";
 import { makeStyles } from "@material-ui/core";
 import { observer } from "mobx-react";
 import { GameState } from "../store/mobxstore";
-import desertImg from "../img/desert.png";
+import desertImg from "../img/levels.jpg";
 import { StoreContext } from "..";
 const Levels = observer(({ ...props }) => {
   const gamseState = useContext(StoreContext);

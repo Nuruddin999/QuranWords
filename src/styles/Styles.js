@@ -1,5 +1,4 @@
 import { makeStyles } from "@material-ui/core/styles";
-import desert from "../img/desert.png";
 export const commonStyles = makeStyles({
   topBar: {
     textAlign: "center",

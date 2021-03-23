@@ -36,7 +36,7 @@ const Guide = observer(() => {
     main: {
       height: "95vh",
       overflow: "auto",
-      padding: ".5em",
+      padding: ".5em"
     },
 
     bottom: {
