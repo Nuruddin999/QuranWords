@@ -36,16 +36,25 @@ const Level = observer(({ ...props }) => {
 
   const prevWordStyle = makeStyles({
     prevWord: {
-      display: "block",
+      display: "table",
+      position: "fixed",
+      top: "25%",
+      width: "40vw",
+      height: "10vh",
       textAlign: "center",
       fontFamily: "Tajawal",
-      marginTop: gameState.margin,
-      padding: "1em",
+      transform: `translateY(${gameState.margin})`,
+      // marginTop: gameState.margin,
+      padding: ".5em",
       fontSize: "2em",
-      transition: "all 1s ease-in-out;",
+      transition: "transform .5s ease-in-out;",
       background: "blueviolet",
       borderRadius: "20%",
       color: "white",
+      "& span": {
+        display: "table-cell",
+        verticalAlign: "middle",
+      },
     },
   });
   const prevwordStyle = prevWordStyle();
@@ -270,33 +279,35 @@ const Level = observer(({ ...props }) => {
         />
       ) : (
         <React.Fragment>
-          <TopIcons />
+          {!gameState.isWord1Resolved ? <TopIcons /> : null}
           <div id="wContainer">
             <div className={styles.topBar}>
               <Card className={styles.level}>
-                <span>уровень</span>
+                <span>уровень </span>
                 <span id="levelNum">{props.match.params.id}</span>
               </Card>
               <div className={styles.sqwrapper}>
                 {gameState.isWord1Resolved ? (
-                  <Card className={prevwordStyle.prevWord}>
+                  <div className={prevwordStyle.prevWord}>
                     <span>{rightWord}</span>
-                  </Card>
+                  </div>
                 ) : null}
               </div>
             </div>
           </div>
           <div className="prev-wrap">
             {!gameState.started ? (
-              <Preview
-                end={{
-                  green: gameState.isWord1Resolved,
-                  wrong: gameState.isWrong,
-                }}
-                id="preview"
-              >
-                <span>{gameState.previewLetter.join("")}</span>
-              </Preview>
+              !gameState.isWord1Resolved ? (
+                <Preview
+                  end={{
+                    green: gameState.isWord1Resolved,
+                    wrong: gameState.isWrong,
+                  }}
+                  id="preview"
+                >
+                  <span>{gameState.previewLetter.join("")}</span>
+                </Preview>
+              ) : null
             ) : null}
           </div>
 
@@ -326,13 +337,17 @@ const Level = observer(({ ...props }) => {
             onMouseMove={mouseMove}
             onMouseUp={mouseUp}
           ></canvas>
-          <div className={styles.bottomIcons}>
-            <div className={styles.iconBloc}>
-              <img src={checkIcon} onClick={openWord} />
-            </div>
-            <div className={styles.iconBloc}>
-              <img src={helpIcon} onClick={useDates} />
-            </div>
+          <div className={"bottomIcons"}>
+            {!gameState.isWord1Resolved ? (
+              <React.Fragment>
+                <div className={styles.iconBloc}>
+                  <img src={checkIcon} onClick={openWord} />
+                </div>
+                <div className={styles.iconBloc}>
+                  <img src={helpIcon} onClick={useDates} />
+                </div>
+              </React.Fragment>
+            ) : null}
           </div>
           {gameState.toLevels ? <Redirect to="/levels" /> : null}
           {gameState.toLevel ? <Redirect to={`/level/${nextLevel}`} /> : null}

@@ -86,8 +86,8 @@ export class GameState {
       this.word = [];
       this.stars = this.giveStars(true);
       this.isWord1Resolved = true;
-      this.margin = "0";
-      setTimeout(() => (this.margin = "2em"), 500);
+      this.margin = "110vh";
+      setTimeout(() => (this.margin = "0"), 500);
       this.dates =
         id < data.finished + 1
           ? data.dates

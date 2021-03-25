@@ -7,12 +7,11 @@
 
 .backImg {
   position: fixed;
-  top: -70px;
+  top: 0;
   left: 0;
-  height: 100%;
+  height: 100vh;
+  height: -webkit-fill-available;
   width: 100%;
-  padding-bottom: 70px;
-  transform: translateY(70px);
   z-index: -1;
 }
 .backPreLoader {
@@ -152,12 +151,20 @@ button {
   bottom: 4px;
   left: calc(50% - 20px);
 }
+
 canvas {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 3;
   background: transparent;
+}
+.bottomIcons {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: "15%";
 }
 .confeti-wrapper {
   position: absolute;

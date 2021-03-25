@@ -18,13 +18,7 @@ export const commonStyles = makeStyles({
     width: "2em",
     margin: "0 .2em",
   },
-  bottomIcons: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-around",
-    position: "absolute",
-    bottom: "15%",
-  },
+
   iconBloc: {
     width: "2em",
     height: "2em",
