@@ -1,0 +1,22 @@
+html, body {
+  margin: 0;
+  overflow: hidden;
+  font-family: "Tajawal", sans-serif;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+:root {
+  font-size: calc(1em + 1vw);
+}
+
+#root {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
