@@ -2,8 +2,8 @@ import { observer } from "mobx-react";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, Redirect, Route } from "react-router-dom";
 import "../styles/App.css";
-import { StoreContext } from "..";
 import mainBack from "../img/mainlast.jpg";
+import { StoreContext } from '../store/context';
 const Main = observer(({ ...props }) => {
   const gameState = useContext(StoreContext);
   const [state, setState] = useState(false);
@@ -23,7 +23,7 @@ const Main = observer(({ ...props }) => {
       <Link to="/guide">
         <button>Играть</button>
       </Link>
-      {gameState.toLevels ? <Redirect to="/guide" /> : null}
+      {gameState?.toLevels ? <Redirect to="/guide" /> : null}
     </div>
   );
 });

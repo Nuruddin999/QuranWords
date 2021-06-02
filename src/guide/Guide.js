@@ -9,7 +9,7 @@ import checkIcon from "../img/check.svg";
 import datesIcon from "../img/dates.png";
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
-import { StoreContext } from "..";
+import { StoreContext } from '../store/context';
 const Guide = observer(() => {
   const gameState = useContext(StoreContext);
   const usestyles = makeStyles({

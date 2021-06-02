@@ -34,6 +34,9 @@ import alexandria from "../img/desc/alexandria.jpg";
 import alexandriamob from "../img/alexandriamob.jpg";
 import lighthouse from "../img/desc/lighthouse.jpg";
 import desert2 from "../img/desert2.jpg";
+import mosqnight from "../img/mosque_night.jpg";
+import masjid from "../img/masjid.jpg";
+import darkm from "../img/darkm.jpg";
 export let levels = [];
 let lvls = [
   {
@@ -387,6 +390,76 @@ let lvls = [
     img: {
       mob: desert2,
       desc: lighthouse,
+    },
+  },
+  {
+    mainword: "تكاثر",
+    word1: "تكاثر",
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    prompt: {
+      text: "",
+      suras: [],
+      letters: 0,
+    },
+    img: {
+      mob: mosqnight,
+      desc: mosqnight,
+    },
+  },
+  {
+    mainword: "بروج",
+    word1: "بروج",
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    prompt: {
+      text: "",
+      suras: [],
+      letters: 0,
+    },
+    img: {
+      mob: mosqnight,
+      desc: mosqnight,
+    },
+  },
+  {
+    mainword: "مرصاد",
+    word1: "مرصاد",
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    prompt: {
+      text: "Данное слово встречается в одной из следующих сур:",
+      suras: ["Ан-Наба"],
+      letters: 0,
+    },
+    img: {
+      mob: masjid,
+      desc: masjid,
+    },
+  },
+  {
+    mainword: "ابصار",
+    word1: "ابصار",
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    prompt: {
+      text: "Данное слово встречается в одной из следующих сур:",
+      suras: ["Ан-Назиат"],
+      letters: 0,
+    },
+    img: {
+      mob: masjid,
+      desc: masjid,
+    },
+  },
+  {
+    mainword: "حافرة",
+    word1: "حافرة",
+    coordinats: ["l8", "l9", "l4", "l5", "l10"],
+    prompt: {
+      text: "Данное слово встречается в одной из следующих сур:",
+      suras: ["Ан-Назиат"],
+      letters: 0,
+    },
+    img: {
+      mob: darkm,
+      desc: darkm,
     },
   },
 ];

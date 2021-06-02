@@ -6,8 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import nextIcon from "../img/nextIcon.svg";
 import ListIcon from "@material-ui/icons/List";
 import confetti from "../img/confetti.svg";
-import { StoreContext } from "..";
 import { observer } from "mobx-react";
+import { StoreContext } from '../store/context';
 const LevelFinish = observer(({ ...props }) => {
   const gameState = useContext(StoreContext);
   const levelFinishStyles = makeStyles((theme) => ({

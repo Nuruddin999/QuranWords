@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core";
 import { observer } from "mobx-react";
 import { GameState } from "../store/mobxstore";
 import desertImg from "../img/levels.jpg";
-import { StoreContext } from "..";
+import { StoreContext } from '../store/context';
 const Levels = observer(({ ...props }) => {
   const gamseState = useContext(StoreContext);
   let finished = Number(gamseState.data.finished);

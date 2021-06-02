@@ -18,9 +18,9 @@ import Guide from "../guide/Guide";
 import { observer } from "mobx-react";
 import { GameState } from "../store/mobxstore";
 import { createContext } from "react";
-import { StoreContext } from "..";
 import MainComp from "../main/Main";
 import GuideComp from "../guide/Guide";
+import { StoreContext } from '../store/context';
 const App = observer((props) => {
   const gameState = useContext(StoreContext);
   const styles = commonStyles();
@@ -83,18 +83,18 @@ const App = observer((props) => {
             <Prompt />
           </div>
         ) : null}
-          <Switch>
-            <Route path="/" exact render={(prop) => <MainComp />} />
-            <Route path="/guide" render={(prop) => <GuideComp />} />
-            <Route
-              path="/levels"
-              render={(prop) => <Levels levels={levels} />}
-            />
-            <Route
-              path="/level/:id"
-              render={(prop) => <Level levels={levels} />}
-            />
-          </Switch>
+        <Switch>
+          <Route path="/" exact render={(prop) => <MainComp />} />
+          <Route path="/guide" render={(prop) => <GuideComp />} />
+          <Route
+            path="/levels"
+            render={(prop) => <Levels levels={levels} />}
+          />
+          <Route
+            path="/level/:id"
+            render={(prop) => <Level levels={levels} />}
+          />
+        </Switch>
       </div>
     </div>
   );

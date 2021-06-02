@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core";
 import { observer } from "mobx-react";
 import { GameState } from "../store/mobxstore";
-import { StoreContext } from "..";
+import { StoreContext } from '../store/context';
 const Prompt = observer((props) => {
   const gameState = useContext(StoreContext);
   const styles = commonStyles();
@@ -59,9 +59,16 @@ const Prompt = observer((props) => {
   return (
     <div className={promptStyle.promptContainer}>
       <Card className={styles.promptCard}>
-        <span>{gameState.prompt.text}</span>
-        {displaySuras()}
-        <span>{`Слово из ${gameState.prompt.letters} букв`}</span>
+        {gameState.prompt.text !== "" ? (
+          <React.Fragment>
+            <span>{gameState.prompt.text}</span>
+            {displaySuras()}
+            <span>{`Слово из ${gameState.prompt.letters} букв`}</span>
+          </React.Fragment>
+        ) : (
+          <span>Думай сам</span>
+        )}
+
         <Button className={styles.promptBtn} onClick={handleClick}>
           Понятно
         </Button>

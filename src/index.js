@@ -6,7 +6,7 @@ import { BrowserRouter, HashRouter } from "react-router-dom";
 import App from "./main/App";
 import { GameState } from "./store/mobxstore";
 import { Provider } from "mobx-react";
-export const StoreContext = createContext();
+import { StoreContext } from './store/context';
 const StoreProvider = ({ children }) => {
   const gamestate = new GameState();
   return (

@@ -21,9 +21,9 @@ import Confeti from "./Confeti";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { observer } from "mobx-react";
-import { StoreContext } from "..";
 import TopIcons from "./TopIcons";
 import BackImage from "./BackImage";
+import { StoreContext } from '../store/context';
 const Level = observer(({ ...props }) => {
   const gameState = useContext(StoreContext);
   const styles = commonStyles();

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { observer } from "mobx-react";
-import { StoreContext } from "..";
 import { commonStyles } from "../styles/Styles";
 import datesIcon from "../img/dates.png";
 import backIcon from "../img/backicon.png";
+import { StoreContext } from '../store/context';
 const TopIcons = observer(() => {
   const gameState = useContext(StoreContext);
   const styles = commonStyles();
